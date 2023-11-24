@@ -14,7 +14,7 @@
       <div class="row justify-content-center">
         <div class="col-lg-5">
           <div class="card bg-secondary shadow border-0">
-            <div class="card-header bg-white pb-5">
+            <!-- <div class="card-header bg-white pb-5">
               <div class="text-muted text-center mb-3">
                 <small>Sign in with</small>
               </div>
@@ -32,18 +32,18 @@
                   <span class="btn-inner--text">Google</span>
                 </a>
               </div>
-            </div>
+            </div> -->
             <div class="card-body px-lg-5 py-lg-5">
               <div class="text-center text-muted mb-4">
-                <small>Or sign in with credentials</small>
+                <b>Connexion</b>
               </div>
-              <form role="form">
+              <form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
                 <div class="form-group mb-3" [ngClass]="{'focused':focus===true}">
                   <div class="input-group input-group-alternative">
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="ni ni-email-83"></i></span>
                     </div>
-                    <input class="form-control" placeholder="Email" type="email" (focus)="focus=true" (blur)="focus=false">
+                    <input class="form-control" formControlName="email" placeholder="Email" type="email" (focus)="focus=true" (blur)="focus=false">
                   </div>
                 </div>
                 <div class="form-group" [ngClass]="{'focused':focus1===true}">
@@ -55,13 +55,13 @@
                   </div>
                 </div>
                 <div class="custom-control custom-control-alternative custom-checkbox">
-                  <input class="custom-control-input" id=" customCheckLogin" type="checkbox">
+                  <input class="custom-control-input" [(ngModel)]="rememberMe" formControlName="rememberMe" id=" customCheckLogin" type="checkbox">
                   <label class="custom-control-label" for=" customCheckLogin">
                     <span>Remember me</span>
                   </label>
                 </div>
                 <div class="text-center">
-                  <button type="button" class="btn btn-primary my-4">Sign in</button>
+                  <button  type="submit" class="btn btn-primary my-4">Connexion</button>
                 </div>
               </form>
             </div>
@@ -69,12 +69,12 @@
           <div class="row mt-3">
             <div class="col-6">
               <a href="javascript:void(0)" class="text-light">
-                <small>Forgot password?</small>
+                <small> Mot de passe oublié?</small>
               </a>
             </div>
             <div class="col-6 text-right">
-              <a href="javascript:void(0)" class="text-light">
-                <small>Create new account</small>
+              <a [routerLink]="['/register']"  routerLinkActive="router-link-active" class="text-light">
+                <small>Créer un compte</small>
               </a>
             </div>
           </div>
