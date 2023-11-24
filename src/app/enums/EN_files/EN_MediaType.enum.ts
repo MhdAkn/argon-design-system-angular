@@ -1,0 +1,6 @@
+export enum MediaType {
+    UNKNOWN = "UNKNOWN",
+    PROFILE = "PROFILE",
+    BANNER_VIDEO = "BANNER_VIDEO",
+    BANNER_IMAGE = "BANNER_IMAGE",
+}

@@ -1,5 +1,5 @@
 {
-  "name": "argon-design-system-angular",
+  "name": "notaro",
   "version": "1.3.0",
   "scripts": {
     "ng": "ng",
@@ -24,12 +24,19 @@
     "@angular/platform-browser-dynamic": "^13.3.1",
     "@angular/router": "^13.3.1",
     "@ng-bootstrap/ng-bootstrap": "12.0.1",
+    "@ngneat/hot-toast": "^4.1.0",
+    "@ngneat/overview": "^2.0.2",
     "@popperjs/core": "^2.11.4",
+    "@types/crypto-js": "^3.1.47",
+    "basic-cipher": "^1.0.1",
+    "d-encode-decode": "^1.0.4",
     "jw-bootstrap-switch-ng2": "2.0.5",
     "moment": "^2.29.1",
     "ng2-nouislider": "1.8.3",
     "nouislider": "14.6.3",
     "rxjs": "^7.5.5",
+    "storage-encryption": "^1.0.16",
+    "sweetalert2": "^11.10.1",
     "zone.js": "~0.11.5"
   },
   "devDependencies": {
@@ -39,7 +46,7 @@
     "@angular/language-service": "13.3.1",
     "@types/jasmine": "~3.10.3",
     "@types/jasminewd2": "~2.0.10",
-    "@types/node": "16.3.2",
+    "@types/node": "^16.3.2",
     "codelyzer": "6.0.2",
     "jasmine-core": "~4.0.1",
     "jasmine-spec-reporter": "~7.0.0",
