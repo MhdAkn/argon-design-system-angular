@@ -18,6 +18,8 @@ export class SignupComponent implements OnInit {
     focus;
     focus1;
     focus2;
+    focus3;
+    focus4;
   
     user: UserRegistration
     isValidFormSubmitted?: boolean;

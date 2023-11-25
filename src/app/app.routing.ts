@@ -14,10 +14,16 @@ import { NoteDetailsResolver } from './resolvers/note-details.resolver';
 import { NotesListesByUsersResolver } from './resolvers/note.resolver';
 
 export const appRoutes: Routes = [
-  { path: 'home', component: HomeComponent },
+  // { path: 'home', component: HomeComponent },
   { path: 'user-profile', component: ProfileComponent },
   { path: 'register', component: SignupComponent },
-  { path: 'landing', component: LandingComponent },
+  {
+    path: 'news',
+    resolve: {
+      user: AccountResolver, DataInfo: NewsResolver
+    },
+    component: LandingComponent
+  },
   {
     path: 'login',
     component: LoginComponent

@@ -46,7 +46,7 @@
                     <input class="form-control pl-2" formControlName="firstName" placeholder="Nom" type="text" (focus)="focus=true" (blur)="focus=false">
                   </div>
                 </div>
-                <div class="form-group" [ngClass]="{'focused':focus===true}">
+                <div class="form-group" [ngClass]="{'focused':focus1===true}">
                   <div class="input-group input-group-alternative mb-3">
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
@@ -54,7 +54,7 @@
                     <input class="form-control pl-2" formControlName="lastName"  placeholder="Prénom" type="text" (focus)="focus=true" (blur)="focus=false">
                   </div>
                 </div>
-                <div class="form-group" [ngClass]="{'focused':focus1===true}">
+                <div class="form-group" [ngClass]="{'focused':focus2===true}">
                   <div class="input-group input-group-alternative mb-3">
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="ni ni-email-83"></i></span>
@@ -62,7 +62,7 @@
                     <input class="form-control pl-2" placeholder="Email" type="email" (focus)="focus1=true" (blur)="focus1=false">
                   </div>
                 </div>
-                <div class="form-group" [ngClass]="{'focused':focus===true}">
+                <div class="form-group" [ngClass]="{'focused':focus3===true}">
                   <div class="input-group input-group-alternative mb-3">
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
@@ -70,7 +70,7 @@
                     <input class="form-control pl-2"  formControlName="pseudo" placeholder="Pseudo" type="text" (focus)="focus=true" (blur)="focus=false">
                   </div>
                 </div>
-                <div class="form-group" [ngClass]="{'focused':focus2===true}">
+                <div class="form-group" [ngClass]="{'focused':focus4===true}">
                   <div class="input-group input-group-alternative">
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
