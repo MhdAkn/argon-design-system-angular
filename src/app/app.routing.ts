@@ -1,6 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule, } from '@angular/common';
-import { BrowserModule } from '@angular/platform-browser';
 import { Routes, RouterModule } from '@angular/router';
 
 import { HomeComponent } from './home/home.component';
@@ -16,7 +14,7 @@ import { NoteDetailsResolver } from './resolvers/note-details.resolver';
 import { NotesListesByUsersResolver } from './resolvers/note.resolver';
 
 export const appRoutes: Routes = [
-  { path: 'home', component: LoginComponent },
+  { path: 'home', component: HomeComponent },
   { path: 'user-profile', component: ProfileComponent },
   { path: 'register', component: SignupComponent },
   { path: 'landing', component: LandingComponent },
@@ -24,7 +22,7 @@ export const appRoutes: Routes = [
     path: 'login',
     component: LoginComponent
   },
-  // { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
   {
     path: 'news',
     data: { theme: 'theme-brand' },

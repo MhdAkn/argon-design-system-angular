@@ -14,10 +14,10 @@
       <div class="row justify-content-center">
         <div class="col-lg-5">
           <div class="card bg-secondary shadow border-0">
-            <div class="card-header bg-white pb-5">
-              <div class="text-muted text-center mb-3">
+            <!-- <div class="card-header bg-white pb-5"> -->
+              <!-- <div class="text-muted text-center mb-3">
                 <small>Sign up with</small>
-              </div>
+              </div> -->
               <!-- <div class="text-center">
                 <a href="javascript:void(0)" class="btn btn-neutral btn-icon mr-4">
                   <span class="btn-inner--icon">
@@ -32,7 +32,7 @@
                   <span class="btn-inner--text">Google</span>
                 </a>
               </div> -->
-            </div>
+            <!-- </div> -->
             <div class="card-body px-lg-5 py-lg-5">
               <div class="text-center text-muted mb-4">
                 <small><b>Inscription</b></small>
@@ -43,7 +43,7 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
                     </div>
-                    <input class="form-control" formControlName="firstName" placeholder="Nom" type="text" (focus)="focus=true" (blur)="focus=false">
+                    <input class="form-control pl-2" formControlName="firstName" placeholder="Nom" type="text" (focus)="focus=true" (blur)="focus=false">
                   </div>
                 </div>
                 <div class="form-group" [ngClass]="{'focused':focus===true}">
@@ -51,7 +51,7 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
                     </div>
-                    <input class="form-control" formControlName="lastName"  placeholder="Prénom" type="text" (focus)="focus=true" (blur)="focus=false">
+                    <input class="form-control pl-2" formControlName="lastName"  placeholder="Prénom" type="text" (focus)="focus=true" (blur)="focus=false">
                   </div>
                 </div>
                 <div class="form-group" [ngClass]="{'focused':focus1===true}">
@@ -59,7 +59,7 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="ni ni-email-83"></i></span>
                     </div>
-                    <input class="form-control" placeholder="Email" type="email" (focus)="focus1=true" (blur)="focus1=false">
+                    <input class="form-control pl-2" placeholder="Email" type="email" (focus)="focus1=true" (blur)="focus1=false">
                   </div>
                 </div>
                 <div class="form-group" [ngClass]="{'focused':focus===true}">
@@ -67,7 +67,7 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
                     </div>
-                    <input class="form-control"  formControlName="pseudo" placeholder="Pseudo" type="text" (focus)="focus=true" (blur)="focus=false">
+                    <input class="form-control pl-2"  formControlName="pseudo" placeholder="Pseudo" type="text" (focus)="focus=true" (blur)="focus=false">
                   </div>
                 </div>
                 <div class="form-group" [ngClass]="{'focused':focus2===true}">
@@ -75,7 +75,7 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                     </div>
-                    <input class="form-control"  placeholder="Password" type="password" (focus)="focus2=true" (blur)="focus2=false">
+                    <input class="form-control pl-2"  placeholder="Password" type="password" (focus)="focus2=true" (blur)="focus2=false">
                   </div>
                 </div>
                 <!-- <div class="text-muted font-italic">
@@ -99,9 +99,9 @@
                   <button type="submit" class="btn btn-primary mt-4">S'inscrire</button>
                 </div>
 
-                <div class="form-group m-t-30 m-b-0">
+                <div class="form-group mt-3 m-b-0">
                   <div class="col-sm-12 text-center">
-                      <a [routerLink]="['/login']"  routerLinkActive="router-link-active" class="text-muted">Aviez déjà un compte?</a>
+                      <a [routerLink]="['/login']"  routerLinkActive="router-link-active" class="text-muted">Aviez-vous déjà un compte?</a>
                   </div>
               </div>
               </form>
