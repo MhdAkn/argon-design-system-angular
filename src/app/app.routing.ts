@@ -15,7 +15,7 @@ import { NewsResolver } from './resolvers/news.resolver';
 import { NoteDetailsResolver } from './resolvers/note-details.resolver';
 import { NotesListesByUsersResolver } from './resolvers/note.resolver';
 
-const appRoutes: Routes = [
+export const appRoutes: Routes = [
   { path: 'home', component: LoginComponent },
   { path: 'user-profile', component: ProfileComponent },
   { path: 'register', component: SignupComponent },
@@ -58,24 +58,19 @@ const appRoutes: Routes = [
     resolve: { NoteData: NoteDetailsResolver, user: AccountResolver },
     // loadChildren: () => import('./pages/listes/detail-note/detail-note.module').then(m => m.DetailNoteModule)
   },
-  {
-    path: '404',
-    resolve: { user: AccountResolver },
-    data: { preload: true },
-    loadChildren: () => import('./errors/error-404/error-404.module').then(m => m.Error404Module)
-  },
-  {
-    path: '**', redirectTo: '404'
-  },
+  // {
+  //   path: '404',
+  //   resolve: { user: AccountResolver },
+  //   data: { preload: true },
+  //   loadChildren: () => import('./errors/error-404/error-404.module').then(m => m.Error404Module)
+  // },
+  // {
+  //   path: '**', redirectTo: '404'
+  // },
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    BrowserModule,
-    RouterModule.forRoot(appRoutes),
-  ],
+  imports: [RouterModule.forRoot(appRoutes)],
   exports: [RouterModule]
-
 })
 export class AppRoutingModule { }
