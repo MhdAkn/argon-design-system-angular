@@ -37,62 +37,34 @@
     </section>
     <!-- 1st Hero Variation -->
   </div>
-  <section class="section section-lg pt-lg-0 mt--200">
+  <section class="section section-lg pt-lg-0 mt--200" *ngIf="isConnect">
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-lg-12">
           <div class="row row-grid">
-            <div class="col-lg-4">
-              <div class="card card-lift--hover shadow border-0">
-                <div class="card-body py-5">
-                  <div class="icon icon-shape icon-shape-primary rounded-circle mb-4">
-                    <i class="ni ni-check-bold"></i>
-                  </div>
-                  <h6 class="text-primary text-uppercase">Download Argon</h6>
-                  <p class="description mt-3">Argon is a great free UI package based on Angular that includes the most
-                    important components and features.</p>
+            <ng-container *ngFor="let item of notesNews, let i =index">
+              <div class="col-lg-4 mb-4">
+                <div class="card card-lift--hover shadow border-0">
+                  <div class="card-body py-5">
+                    <div class="icon icon-shape rounded-circle mb-4" (click)="saveOrRemoveLike($event,item.note.id, item.isLiked)"
+                      [ngClass]="{'icon-shape-dark': !item.isLiked,'icon-shape-danger': item.isLiked}">
+                      <i class="fa fa-heart" *ngIf="!item.isLiked"></i>
+                      <i class="fa fa-heart" *ngIf="item.isLiked"></i>
+                    </div>
+                    <h6 class="text-primary text-uppercase">{{item.note.title}}</h6>
+                    <p class="description mt-3 line-clamp-3" *ngIf="!item.note.showParagraph">{{item.note.content}}</p>
+                    <p class="description mt-3" *ngIf="item.note.showParagraph">{{item.note.content}}</p>
                     <div class="justify-content-between">
-                      <span class="badge badge-pill badge-primary">angular</span>
-                    <span class="badge badge-pill badge-primary">ng-bootstrap</span>
+                      <span class="badge badge-pill" [ngClass]="getBackgroundColorClass(i)">{{item.note.user.pseudo |titlecase}}</span>
+                      <span class=""> {{item.note.createdAt|initDate|date:'longDate':'':'fr'}}&nbsp;{{item.note.createdAt
+                        |initDate|date:'HH':'':'fr'}}h{{item.note.createdAt |initDate|date:'mm':'':'fr'}}</span>
+                    </div>
+                    <a (click)="toggleParagraph(item.note)" class="btn text-light mt-4" [ngClass]="getBtnColorClass(i)"> {{!item.note.showParagraph?'Voir plus':'Voir moins' |titlecase}}</a>
                   </div>
-                  <a href="javascript:void(0)" class="btn btn-primary mt-4">Voir plus</a>
                 </div>
               </div>
-            </div>
-            <div class="col-lg-4">
-              <div class="card card-lift--hover shadow border-0">
-                <div class="card-body py-5">
-                  <div class="icon icon-shape icon-shape-success rounded-circle mb-4">
-                    <i class="ni ni-istanbul"></i>
-                  </div>
-                  <h6 class="text-success text-uppercase">Build Something</h6>
-                  <p class="description mt-3">Argon is a great free UI package based on Angular that includes the most
-                    important components and features.</p>
-                    <div class="justify-content-between">
-                      <span [class]="badge_success">Boss</span>
-                    <span [class]="badge_success +'justify-content-end'">12 Novembre à 12h50</span>
-                  </div>
-                  <a href="javascript:void(0)" class="btn btn-success mt-4">Voir plus</a>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-4">
-              <div class="card card-lift--hover shadow border-0">
-                <div class="card-body py-5">
-                  <div class="icon icon-shape icon-shape-warning rounded-circle mb-4">
-                    <i class="ni ni-planet"></i>
-                  </div>
-                  <h6 class="text-warning text-uppercase">Prepare Launch</h6>
-                  <p class="description mt-3">Argon is a great free UI package based on Angular that includes the most
-                    important components and features.</p>
-                  <div class="flex-row justify-content-between">
-                    <span class="badge  badge-warning">Tunde</span>
-                    <span class="badge  badge-warning justify-content-end">12 Novembre à 12h29</span>
-                  </div>
-                  <a href="javascript:void(0)" class="btn btn-warning mt-4">Voir plus</a>
-                </div>
-              </div>
-            </div>
+            </ng-container>
+
           </div>
         </div>
       </div>
@@ -351,6 +323,7 @@
             </div>
           </div>
         </div>
+
       </div>
     </div>
   </section>
@@ -410,43 +383,45 @@
     </div>
   </section> -->
   <section class="section section-lg pt-lg-0 section-contact-us">
-    <div class="container">
-      <div class="row justify-content-center mt-300">
-        <div class="col-lg-8">
-          <div class="card bg-gradient-secondary shadow">
-            <div class="card-body p-lg-5">
-              <h4 class="mb-1 justify-content-center">Nous contactez?</h4>
-              <!-- <p class="mt-0">Your project is very important to us.</p> -->
-              <div class="form-group mt-5" [ngClass]="{'focused':focus===true}">
-                <div class="input-group input-group-alternative">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="ni ni-user-run"></i></span>
+    <form [formGroup]="ContactForm" (ngSubmit)="contactUs()">
+      <div class="container">
+        <div class="row justify-content-center mt-300">
+          <div class="col-lg-8">
+            <div class="card bg-gradient-secondary shadow">
+              <div class="card-body p-lg-5">
+                <h4 class="mb-1 justify-content-center">Nous contactez?</h4>
+                <!-- <p class="mt-0">Your project is very important to us.</p> -->
+                <div class="form-group mt-5" [ngClass]="{'focused':focus===true}">
+                  <div class="input-group input-group-alternative">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="ni ni-user-run"></i></span>
+                    </div>
+                    <input class="form-control" formControlName="pseudo" placeholder="Votre pseudo" type="text"
+                      (focus)="focus=true" (blur)="focus=false">
                   </div>
-                  <input class="form-control" placeholder="Votre pseudo" type="text" (focus)="focus=true"
-                    (blur)="focus=false">
                 </div>
-              </div>
-              <div class="form-group" [ngClass]="{'focused':focus1===true}">
-                <div class="input-group input-group-alternative">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="ni ni-email-83"></i></span>
+                <div class="form-group" [ngClass]="{'focused':focus1===true}">
+                  <div class="input-group input-group-alternative">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="ni ni-email-83"></i></span>
+                    </div>
+                    <input class="form-control" formControlName="email" placeholder="Email address" type="email"
+                      (focus)="focus1=true" (blur)="focus1=false">
                   </div>
-                  <input class="form-control" placeholder="Email address" type="email" (focus)="focus1=true"
-                    (blur)="focus1=false">
                 </div>
-              </div>
-              <div class="form-group mb-4">
-                <textarea class="form-control form-control-alternative" name="name" rows="4" cols="80"
-                  placeholder="Entrez un message..."></textarea>
-              </div>
-              <div>
-                <button type="button" class="btn btn-default btn-round btn-block btn-lg">Envoyer</button>
+                <div class="form-group mb-4">
+                  <textarea class="form-control form-control-alternative" formControlName="message" name="name" rows="4"
+                    cols="80" placeholder="Entrez un message..."></textarea>
+                </div>
+                <div>
+                  <button type="button" class="btn btn-default btn-round btn-block btn-lg">Envoyer</button>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </form>
   </section>
   <!-- <section class="section section-lg">
     <div class="container">

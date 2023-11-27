@@ -1,0 +1,75 @@
+<main>
+  <div class="position-relative">
+    <!-- shape Hero -->
+    <section class="section section-lg section-shaped pb-250">
+      <div class="shape shape-style-1 shape-default">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <div class="container py-lg-md d-flex">
+        <div class="col px-0">
+          <div class="row">
+            <div class="col-lg-6">
+              <h1 class="display-3  text-white">Favoris
+              </h1>
+              <p class="lead  text-white">Optimisez votre recherche d'inspiration avec la page de favoris, où vous pouvez sauvegarder et organiser vos idées créatives, images inspirantes et projets en cours, pour rester motivé et stimulé dans vos activités artistiques.</p>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- SVG separator -->
+      <div class="separator separator-bottom separator-skew">
+        <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1"
+          xmlns="http://www.w3.org/2000/svg">
+          <polygon class="fill-white" points="2560 0 2560 100 0 100"></polygon>
+        </svg>
+      </div>
+    </section>
+    <!-- 1st Hero Variation -->
+  </div>
+  <section class="section section-lg pt-lg-0 mt--200" *ngIf="isConnect">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-12">
+          <div class="row row-grid">
+            <ng-container *ngFor="let item of notesNews, let i =index">
+              <div class="col-lg-4 mb-4">
+                <div class="card card-lift--hover shadow border-0">
+                  <div class="card-body py-5">
+                    <div class="icon icon-shape rounded-circle mb-4"
+                      (click)="saveOrRemoveLike($event,item.note.id, item.isLiked)"
+                      [ngClass]="{'icon-shape-dark': !item.isLiked,'icon-shape-danger': item.isLiked}">
+                      <i class="fa fa-heart" *ngIf="!item.isLiked"></i>
+                      <i class="fa fa-heart" *ngIf="item.isLiked"></i>
+                    </div>
+                    <h6 class="text-primary text-uppercase">{{item.note.title}}</h6>
+                    <p class="description mt-3 line-clamp-3" *ngIf="!item.note.showParagraph">{{item.note.content}}</p>
+                    <p class="description mt-3" *ngIf="item.note.showParagraph">{{item.note.content}}</p>
+                    <div class="justify-content-between">
+                      <span class="badge badge-pill" [ngClass]="getBackgroundColorClass(i)">{{item.note.user.pseudo
+                        |titlecase}}</span>
+                      <span class="">
+                        {{item.note.createdAt|initDate|date:'longDate':'':'fr'}}&nbsp;{{item.note.createdAt
+                        |initDate|date:'HH':'':'fr'}}h{{item.note.createdAt |initDate|date:'mm':'':'fr'}}</span>
+                    </div>
+                    <a (click)="toggleParagraph(item.note)" class="btn text-light mt-4" [ngClass]="getBtnColorClass(i)">
+                      {{!item.note.showParagraph?'Voir plus':'Voir moins' |titlecase}}</a>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>

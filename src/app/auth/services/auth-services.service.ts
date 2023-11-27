@@ -203,7 +203,6 @@ export class AuthServices {
       const now = new Date().getTime();
       return now < parseInt(tokenExpirationTime, 10);
     }
-
     return false;
   }
 

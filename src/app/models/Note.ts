@@ -9,8 +9,9 @@ export class Note extends BaseEntity {
     image?: Media
     typeNotes: string
     user: User
-    isLiked:boolean
-    isDelete:boolean
-
+    isLiked: boolean
+    isDelete: boolean
+    //for screen
+    showParagraph: boolean
 }
 

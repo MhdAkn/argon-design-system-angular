@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { HomeComponent } from './home/home.component';
-import { ProfileComponent } from './profile/profile.component';
+import { HomeComponent } from './pages/home/home.component';
+import { ProfileComponent } from './pages/profile/profile.component';
 import { SignupComponent } from './auth/signup/signup.component';
-import { LandingComponent } from './landing/landing.component';
+import { LandingComponent } from './pages/landing/landing.component';
 import { LoginComponent } from './auth/login/login.component';
 import { AuthGuard } from './auth/services/auth-guard';
 import { AccountResolver } from './resolvers/account.resolver';
@@ -12,6 +12,7 @@ import { LikesListesByUsersResolver } from './resolvers/likes-list';
 import { NewsResolver } from './resolvers/news.resolver';
 import { NoteDetailsResolver } from './resolvers/note-details.resolver';
 import { NotesListesByUsersResolver } from './resolvers/note.resolver';
+import { LikesComponent } from './pages/likes/likes.component';
 
 export const appRoutes: Routes = [
   // { path: 'home', component: HomeComponent },
@@ -53,6 +54,8 @@ export const appRoutes: Routes = [
     resolve: {
       DataInfo: LikesListesByUsersResolver, user: AccountResolver
     },
+    component: LikesComponent
+
     // loadChildren: () => import('./pages/likes/likes.module').then(m => m.LikesModule)
   },
   {
@@ -68,9 +71,9 @@ export const appRoutes: Routes = [
   //   data: { preload: true },
   //   loadChildren: () => import('./errors/error-404/error-404.module').then(m => m.Error404Module)
   // },
-  // {
-  //   path: '**', redirectTo: '404'
-  // },
+  {
+    path: '**', redirectTo: 'news'
+  },
 ];
 
 @NgModule({

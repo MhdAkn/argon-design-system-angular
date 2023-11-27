@@ -6,12 +6,12 @@ import { ExtraOptions, RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { SignupComponent } from './auth/signup/signup.component';
-import { LandingComponent } from './landing/landing.component';
-import { ProfileComponent } from './profile/profile.component';
+import { LandingComponent } from './pages/landing/landing.component';
+import { ProfileComponent } from './pages/profile/profile.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { FooterComponent } from './shared/footer/footer.component';
 
-import { HomeModule } from './home/home.module';
+import { HomeModule } from './pages/home/home.module';
 import { LoginComponent } from './auth/login/login.component';
 import { CommonModule, LocationStrategy, PathLocationStrategy, registerLocaleData } from '@angular/common';
 import { AuthServices } from './auth/services/auth-services.service';
@@ -21,6 +21,8 @@ import { LocalStorageKey } from './keys/LocalStorageKey';
 import { AppRoutingModule, appRoutes } from './app.routing';
 import { CoreModule } from './core/core.module';
 import { HttpClientModule } from '@angular/common/http';
+import { InitDateModule } from './shared/initialise-date/initialise-date.pipe.module';
+import { LikesComponent } from './pages/likes/likes.component';
 // import { MAT_DATE_LOCALE } from "@angular/material/core";
 
 
@@ -40,6 +42,7 @@ export function tokenGetter() {
     AppComponent,
     SignupComponent,
     LandingComponent,
+    LikesComponent,
     ProfileComponent,
     NavbarComponent,
     FooterComponent,
@@ -57,6 +60,8 @@ export function tokenGetter() {
     CommonModule,
     CoreModule,
     HttpClientModule,
+    InitDateModule
+
   ],
   providers: [AuthServices,
     CustomPreloadingWithDelayStrategy,

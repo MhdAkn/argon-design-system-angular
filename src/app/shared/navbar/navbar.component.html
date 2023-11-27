@@ -1,10 +1,11 @@
-<nav id="navbar-main" class="navbar navbar-main navbar-expand-lg navbar-transparent navbar-light headroom headroom--top headroom--pinned">
+<nav id="navbar-main"
+  class="navbar navbar-main navbar-expand-lg navbar-transparent navbar-light headroom headroom--top headroom--pinned">
   <div class="container">
-    <a class="navbar-brand mr-lg-5 h-2" [routerLink]="['/home']">
+    <a class="navbar-brand mr-lg-5 h-2" [routerLink]="['/news']">
       NOTARO
     </a>
     <button class="navbar-toggler" type="button" (click)="isCollapsed = !isCollapsed"
-          [attr.aria-expanded]="!isCollapsed" aria-controls="navbar_global">
+      [attr.aria-expanded]="!isCollapsed" aria-controls="navbar_global">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="navbar-collapse collapse" id="navbar_global" [ngbCollapse]="isCollapsed">
@@ -17,7 +18,7 @@
           </div>
           <div class="col-6 collapse-close">
             <button type="button" class="navbar-toggler" (click)="isCollapsed = !isCollapsed"
-                  [attr.aria-expanded]="!isCollapsed" aria-controls="navbar_global">
+              [attr.aria-expanded]="!isCollapsed" aria-controls="navbar_global">
               <span></span>
               <span></span>
             </button>
@@ -25,38 +26,49 @@
         </div>
       </div>
       <ul class="navbar-nav navbar-nav-hover align-items-lg-center">
-        <li class="nav-item dropdown">
-          <a class="nav-link no-caret" data-toggle="dropdown" role="button">
-            <i class="ni ni-ui-04 d-lg-none"></i>
-            <span class="nav-link-inner--text">News</span>
-          </a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link no-caret" data-toggle="dropdown" role="button">
-            <i class="ni ni-bullet-list-67 d-lg-none"></i>
-            <span class="nav-link-inner--text">Listes des notes</span>
-          </a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link no-caret" data-toggle="dropdown" role="button">
-            <i class="ni ni-like-2 d-lg-none"></i>
-            <span class="nav-link-inner--text">Listes des favoris</span>
-          </a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link no-caret" data-toggle="dropdown" role="button">
-            <i class="ni ni-vector d-lg-none"></i>
-            <span class="nav-link-inner--text">Profile</span>
-          </a>
-        </li>
-        <li class="nav-item dropdown">
-          <div class="dropdown-menu">
-            <a [routerLink]="['/login']" class="dropdown-item">Login</a>
+        <ng-container *ngIf="isConnect">
+
+          <li class="nav-item dropdown summary">
+            <a class="nav-link no-caret" data-toggle="dropdown" [routerLink]="['/news']" role="button">
+              <i class="ni ni-ui-04 d-lg-none"></i>
+              <span class="nav-link-inner--text">News</span>
+            </a>
+          </li>
+          <li class="nav-item dropdown summary">
+            <a class="nav-link no-caret" data-toggle="dropdown" role="button">
+              <i class="ni ni-bullet-list-67 d-lg-none"></i>
+              <span class="nav-link-inner--text">Listes des notes</span>
+            </a>
+          </li>
+          <li class="nav-item dropdown summary">
+            <a class="nav-link no-caret" data-toggle="dropdown" [routerLink]="['/likes']" role="button">
+              <i class="ni ni-like-2 d-lg-none"></i>
+              <span class="nav-link-inner--text">Listes des favoris</span>
+            </a>
+          </li>
+          <li class="nav-item dropdown summary">
+            <a class="nav-link no-caret" data-toggle="dropdown" [routerLink]="['/user-profile']" role="button">
+              <i class="ni ni-vector d-lg-none"></i>
+              <span class="nav-link-inner--text">Profile</span>
+            </a>
+          </li>
+        </ng-container>
+
+
+        <ng-container *ngIf="!isConnect">
+          <li class="nav-item dropdown summary">
             <a [routerLink]="['/register']" class="dropdown-item">Register</a>
-          </div>
-        </li>
+
+          </li>
+          <li class="nav-item dropdown summary">
+            <a [routerLink]="['/login']" class="dropdown-item">Login</a>
+          </li>
+        </ng-container>
+
+
+
       </ul>
-    
+
     </div>
   </div>
 </nav>
