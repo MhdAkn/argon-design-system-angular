@@ -13,6 +13,7 @@ import { NewsResolver } from './resolvers/news.resolver';
 import { NoteDetailsResolver } from './resolvers/note-details.resolver';
 import { NotesListesByUsersResolver } from './resolvers/note.resolver';
 import { LikesComponent } from './pages/likes/likes.component';
+import { NotesComponent } from './pages/notes/notes.component';
 
 export const appRoutes: Routes = [
   // { path: 'home', component: HomeComponent },
@@ -45,6 +46,8 @@ export const appRoutes: Routes = [
     resolve: {
       DataInfo: NotesListesByUsersResolver, user: AccountResolver
     },
+    component: NotesComponent
+
     // loadChildren: () => import('./pages/listes/listes.module').then(m => m.ListesModule)
   },
   {

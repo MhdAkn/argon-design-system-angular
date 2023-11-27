@@ -19,7 +19,9 @@
             <div class="col-lg-6">
               <h1 class="display-3 text-white">Favoris
               </h1>
-              <p class="lead  text-white">Optimisez votre recherche d'inspiration avec la page de favoris, où vous pouvez sauvegarder et organiser vos idées créatives, images inspirantes et projets en cours, pour rester motivé et stimulé dans vos activités artistiques.</p>
+              <p class="lead  text-white">Optimisez votre recherche d'inspiration avec la page de favoris, où vous
+                pouvez sauvegarder et organiser vos idées créatives, images inspirantes et projets en cours, pour rester
+                motivé et stimulé dans vos activités artistiques.</p>
 
             </div>
           </div>
@@ -44,11 +46,10 @@
               <div class="col-lg-4 mb-4">
                 <div class="card card-lift--hover shadow border-0">
                   <div class="card-body py-5">
-                    <div class="icon icon-shape rounded-circle mb-4"
-                      (click)="updateLock($event,item.note.id)"
-                      [ngClass]="{'icon-shape-dark': !item.isLiked,'icon-shape-danger': item.isLiked}">
-                      <i class="fa fa-heart" *ngIf="!item.isLiked"></i>
-                      <i class="fa fa-heart" *ngIf="item.isLiked"></i>
+                    <div class="icon icon-shape rounded-circle mb-4" (click)="updateLock($event,item.note.id,item.note)"
+                      [ngClass]="{'icon-shape-danger': item.note.typeNotes==PRIVATE_NoteType,'icon-shape-success': item.note.typeNotes==PUBLIC_NoteType}">
+                      <i class="fa fa-unlock" *ngIf="item.note.typeNotes==PUBLIC_NoteType"></i>
+                      <i class="fa fa-lock" *ngIf="item.note.typeNotes==PRIVATE_NoteType"></i>
                     </div>
                     <h6 class="text-primary text-uppercase">{{item.note.title}}</h6>
                     <p class="description mt-3 line-clamp-3" *ngIf="!item.note.showParagraph">{{item.note.content}}</p>

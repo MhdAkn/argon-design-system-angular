@@ -5,19 +5,19 @@ import { ApiResponse } from '../../response/api-response';
 import { AlertService } from '../../utils/alert.service';
 import { FormGroup } from '@angular/forms';
 import { Note } from '../../models/Note';
-import { LikeService } from '../../services/like.service';
 import { AuthServices } from '../../auth/services/auth-services.service';
 import { HttpCode } from '../../enums/EN_SHARED/EN_HttpCode.enum';
 import { NoteWithLikeInfo } from '../../playloads/note.playload';
 import { environment } from '../../../environments/environment';
+import { NoteType } from '../../enums/EN_NOTES/EN_NoteType.enum';
 
 @Component({
-  selector: 'app-likes',
-  templateUrl: './likes.component.html',
-  styleUrls: ['./likes.component.scss']
+  selector: 'app-notes',
+  templateUrl: './notes.component.html',
+  styleUrls: ['./notes.component.scss']
 })
 
-export class LikesComponent implements OnInit {
+export class NotesComponent implements OnInit {
   focus: any;
   focus1: any;
   badge_success = "badge badge-pill badge-success"
@@ -26,13 +26,14 @@ export class LikesComponent implements OnInit {
   ContactForm: FormGroup;
   allNotesLikes: NoteWithLikeInfo[]
   appUrl = environment.appUrl
-
+  PUBLIC_NoteType = NoteType.PUBLIC
+  PRIVATE_NoteType = NoteType.PRIVATE
   notesLiked: Note[]
   constructor(
     private activateRoute: ActivatedRoute,
     private route: Router,
     private authService: AuthServices,
-    private likeService: LikeService,
+    private noteService: NoteService,
     private _changeDetector: ChangeDetectorRef,
     private alertService: AlertService
   ) {
@@ -71,44 +72,52 @@ export class LikesComponent implements OnInit {
     return `btn-${colorClass}`;
   }
 
-  updateLock($event, noteId: string, isLiked: boolean) {
+  updateLock($event, noteId: string,note:Note) {
     $event.stopPropagation();
     if (this.authService.isAuthenticated()) {
-
-      if (!isLiked) {
-        let reqData = { isLiked: true, userId: this.currentUser.id, noteId: noteId }
-        this.likeService.saveOrRemoveLike(reqData).subscribe({
-          next: (response) => {
-            if (response.status == HttpCode.SUCCESS) {
-              this.allNotesLikes.find(note => {
-                if (note.note.id == noteId) {
-                  note.isLiked = true
-                }
-              });
-              this._changeDetector.markForCheck();
+      this.noteService.updateNote({ note: { title: note.title, typeNotes: note.typeNotes, content: note.content }, userId: this.currentUser.id }).subscribe({
+        next:
+          (res) => {
+            if (res.status == HttpCode.SUCCESS) {
             } else {
-              this.alertService.showToast('Oops une erreur est survenue! Veuillez réessayer plus tard!', 'error', 'top-center')
+              this.alertService.showToast('Modification échouée', 'error', 'top-center');
             }
           }
-        });
-      } else {
-        let reqData = { isLiked: false, userId: this.currentUser.id, noteId: noteId }
-        this.likeService.saveOrRemoveLike(reqData).subscribe({
-          next: (response) => {
-            if (response.status == HttpCode.SUCCESS) {
-              this.allNotesLikes.find(note => {
-                if (note.note.id == noteId) {
-                  note.isLiked = false
-                  this._changeDetector.markForCheck();
-                }
-              });
-            } else {
-              this.alertService.showToast('Oops une erreur est survenue! Veuillez réessayer plus tard!', 'error', 'top-center')
-            }
+      })
+      // if (!isLiked) {
+      //   let reqData = { isLiked: true, userId: this.currentUser.id, noteId: noteId }
+      //   this.likeService.saveOrRemoveLike(reqData).subscribe({
+      //     next: (response) => {
+      //       if (response.status == HttpCode.SUCCESS) {
+      //         this.allNotesLikes.find(note => {
+      //           if (note.note.id == noteId) {
+      //             note.isLiked = true
+      //           }
+      //         });
+      //         this._changeDetector.markForCheck();
+      //       } else {
+      //         this.alertService.showToast('Oops une erreur est survenue! Veuillez réessayer plus tard!', 'error', 'top-center')
+      //       }
+      //     }
+      //   });
+      // } else {
+      //   let reqData = { isLiked: false, userId: this.currentUser.id, noteId: noteId }
+      //   this.likeService.saveOrRemoveLike(reqData).subscribe({
+      //     next: (response) => {
+      //       if (response.status == HttpCode.SUCCESS) {
+      //         this.allNotesLikes.find(note => {
+      //           if (note.note.id == noteId) {
+      //             note.isLiked = false
+      //             this._changeDetector.markForCheck();
+      //           }
+      //         });
+      //       } else {
+      //         this.alertService.showToast('Oops une erreur est survenue! Veuillez réessayer plus tard!', 'error', 'top-center')
+      //       }
 
-          }
-        });
-      }
+      //     }
+      //   });
+      // }
     } else {
       this.route.navigateByUrl(this.appUrl + 'login');
     }

@@ -47,9 +47,9 @@
                 <div class="card card-lift--hover shadow border-0">
                   <div class="card-body py-5">
                     <div class="icon icon-shape rounded-circle mb-4" (click)="saveOrRemoveLike($event,item.note.id, item.isLiked)"
-                      [ngClass]="{'icon-shape-dark': !item.isLiked,'icon-shape-danger': item.isLiked}">
-                      <i class="fa fa-heart" *ngIf="!item.isLiked"></i>
-                      <i class="fa fa-heart" *ngIf="item.isLiked"></i>
+                      [ngClass]="{'icon-shape-dark': item.isLiked,'icon-shape-danger': item.isLiked}">
+                      <i class="fa fa-unlock" *ngIf="!item.isLiked"></i>
+                      <i class="fa fa-lock" *ngIf="item.isLiked"></i>
                     </div>
                     <h6 class="text-primary text-uppercase">{{item.note.title}}</h6>
                     <p class="description mt-3 line-clamp-3" *ngIf="!item.note.showParagraph">{{item.note.content}}</p>
