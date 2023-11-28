@@ -3,11 +3,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { User } from '../../models/user';
 import { ApiResponse } from '../../response/api-response';
 import { AlertService } from '../../utils/alert.service';
-import { FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Note } from '../../models/Note';
 import { AuthServices } from '../../auth/services/auth-services.service';
 import { HttpCode } from '../../enums/EN_SHARED/EN_HttpCode.enum';
-import { NoteWithLikeInfo } from '../../playloads/note.playload';
+import { NewNotePlayload, NoteWithLikeInfo } from '../../playloads/note.playload';
 import { environment } from '../../../environments/environment';
 import { NoteType } from '../../enums/EN_NOTES/EN_NoteType.enum';
 import { NoteService } from '../../services/note.service';
@@ -31,6 +31,11 @@ export class NotesComponent implements OnInit {
   PUBLIC_NoteType = NoteType.PUBLIC
   PRIVATE_NoteType = NoteType.PRIVATE
   notesList: Note[];
+  isNewNote: boolean = false
+  createNewNote: boolean = true
+  newNote: Note
+  NewNoteForm: FormGroup;
+
   constructor(
     private activateRoute: ActivatedRoute,
     private route: Router,
@@ -48,8 +53,15 @@ export class NotesComponent implements OnInit {
     console.log(_activatedRoute);
     this.allNotesLikes = _activatedRoute.DataInfo.data
     this.allNotesLikes.map((note) => note.note.showParagraph = false)
-
+    this.newNote = new Note()
+    this.newNote.typeNotes = this.PRIVATE_NoteType
     console.log(this.allNotesLikes);
+    if (this.isNewNote) {
+      this.NewNoteForm = new FormGroup({
+        title: new FormControl('', Validators.required),
+        contenu: new FormControl('', Validators.required),
+      })
+    }
 
     this.currentUser = _activatedRoute.user
   }
@@ -76,7 +88,11 @@ export class NotesComponent implements OnInit {
     return `btn-${colorClass}`;
   }
 
-  updateLock($event, noteId: string,note:Note) {
+  updateLockNew($event, noteId: string, note: Note) {
+    $event.stopPropagation();
+
+  }
+  updateLock($event, noteId: string, note: Note) {
     $event.stopPropagation();
     if (this.authService.isAuthenticated()) {
       this.noteService.updateNote({ note: { title: note.title, typeNotes: note.typeNotes, content: note.content }, userId: this.currentUser.id }).subscribe({
@@ -150,27 +166,59 @@ export class NotesComponent implements OnInit {
     });
     confirmation.afterClosed().subscribe(async (result) => {
       if (result === 'confirmed') {
-        this.noteService.deleteNote({ noteId: note.id, userId: this.currentUser.id }).subscribe({
-          next:
-            (res) => {
-              if (res.status == HttpCode.SUCCESS) {
-                const index = this.notesList.findIndex(objet => objet.id === note.id);
-                console.log(index);
-                
-                if (index >= 0) {
-                  this.notesList.splice(index, 1)
-                  console.log(this.notesList);
-                  this._changeDetector.markForCheck()
-                }
-                this.alertService.showToast('Note supprimée avec succés', 'success', 'top-center');
-              } else {
-                this.alertService.showToast('Supression échoué', 'error', 'top-center');
-              }
-            }
-        })
+        // this.noteService.deleteNote({ noteId: note.id, userId: this.currentUser.id }).subscribe({
+        //   next:
+        //     (res) => {
+        //       if (res.status == HttpCode.SUCCESS) {
+        //         const index = this.notesList.findIndex(objet => objet.id === note.id);
+        //         console.log(index);
+
+        //         if (index >= 0) {
+        //           this.notesList.splice(index, 1)
+        //           console.log(this.notesList);
+        //           this._changeDetector.markForCheck()
+        //         }
+        //         this.alertService.showToast('Note supprimée avec succés', 'success', 'top-center');
+        //       } else {
+        //         this.alertService.showToast('Supression échoué', 'error', 'top-center');
+        //       }
+        //     }
+        // })
       }
     }
     );
+  }
+  onSubmit() {
+    if (this.NewNoteForm.invalid) {
+      return;
+    } else {
+      let note: NewNotePlayload = {
+        title: this.NewNoteForm.value.title,
+        content: this.NewNoteForm.value.content,
+        typeNotes: this.newNote.typeNotes
+      }
+      console.log(note);
+      console.log(this.currentUser);
+
+      console.log({ note: note, userId: this.currentUser.id });
+      if (this.currentUser !== undefined && this.currentUser !== null && note !== null && note !== undefined) {
+        this.noteService.addNote({ note: note, userId: this.currentUser.id }).subscribe({
+          next:
+            (res) => {
+              if (res.status == HttpCode.SUCCESS) {
+                this.allNotesLikes[this.allNotesLikes.length].note = res.data
+                this.allNotesLikes[this.allNotesLikes.length].isLiked = false
+                this.allNotesLikes[this.allNotesLikes.length].note.showParagraph = false
+                this.alertService.showToast('Note ajoutée avec succés', 'success', 'top-center');
+              } else {
+                this.alertService.showToast('Ajout échoué', 'error', 'top-center');
+              }
+            }
+        })
+        window.location.href = 'notes'
+      }
+
+    }
   }
 
 }

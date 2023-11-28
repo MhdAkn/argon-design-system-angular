@@ -11,6 +11,7 @@ import { AuthServices } from '../../auth/services/auth-services.service';
 import { HttpCode } from '../../enums/EN_SHARED/EN_HttpCode.enum';
 import { NoteWithLikeInfo } from '../../playloads/note.playload';
 import { environment } from '../../../environments/environment';
+import { FuseConfirmationService } from '../../../confirmation/confirmation.service';
 
 @Component({
   selector: 'app-landing',
@@ -36,7 +37,9 @@ export class LandingComponent implements OnInit {
     private _alertService: AlertService,
     private _detector: ChangeDetectorRef,
     private likeService: LikeService,
-    private authService: AuthServices
+    private authService: AuthServices,
+    private _fuseConfirmationService: FuseConfirmationService,
+
   ) { }
 
   ngOnInit() {
@@ -69,14 +72,14 @@ export class LandingComponent implements OnInit {
   saveOrRemoveLike($event, noteId: string, isLiked: boolean) {
     $event.stopPropagation();
     console.log($event, noteId, isLiked);
-    
+
     console.log(this.authService.isAuthenticated());
-    
+
     if (this.authService.isAuthenticated()) {
       if (!isLiked) {
         let reqData = { isLiked: true, userId: this.currentUser.id, noteId: noteId }
         console.log(reqData);
-        
+
         this.likeService.saveOrRemoveLike(reqData).subscribe({
           next: (response) => {
             if (response.status == HttpCode.SUCCESS) {
@@ -125,7 +128,7 @@ export class LandingComponent implements OnInit {
   //   const colors = ['danger', 'warning', 'dark', 'success'];
   //   const colorIndex = index % colors.length;
   //   console.log(`badge-${colors[colorIndex]}`);
-  
+
   //   return `badge-${colors[colorIndex]}`;
   // }
 
@@ -142,5 +145,53 @@ export class LandingComponent implements OnInit {
     const colorClass = colors[colorIndex % colors.length];
     return `btn-${colorClass}`;
   }
+  deleteNote(note: Note) {
+
+    const confirmation = this._fuseConfirmationService.open({
+
+      title: 'Supression de note',
+      icon: {
+        color: 'warning',
+      },
+      message: "Confirmez-vous la suppression de la note ?",
+      actions: {
+        confirm: {
+          label: 'Oui, Confirmer',
+          color: 'primary',
+        },
+        cancel: {
+          label: 'Annuler'
+        },
+      }
+    });
+    console.log('jjjh');
+
+    confirmation.afterClosed().subscribe(async (result) => {
+      console.log('jjjh');
+
+      if (result === 'confirmed') {
+        // this.noteService.deleteNote({ noteId: note.id, userId: this.currentUser.id }).subscribe({
+        //   next:
+        //     (res) => {
+        //       if (res.status == HttpCode.SUCCESS) {
+        //         const index = this.notesList.findIndex(objet => objet.id === note.id);
+        //         console.log(index);
+
+        //         if (index >= 0) {
+        //           this.notesList.splice(index, 1)
+        //           console.log(this.notesList);
+        //           this._changeDetector.markForCheck()
+        //         }
+        //         this.alertService.showToast('Note supprimée avec succés', 'success', 'top-center');
+        //       } else {
+        //         this.alertService.showToast('Supression échoué', 'error', 'top-center');
+        //       }
+        //     }
+        // })
+      }
+    }
+    );
+  }
+
 }
 

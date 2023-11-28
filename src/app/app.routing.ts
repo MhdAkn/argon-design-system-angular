@@ -16,7 +16,7 @@ import { LikesComponent } from './pages/likes/likes.component';
 import { NotesComponent } from './pages/notes/notes.component';
 
 export const appRoutes: Routes = [
-  // { path: 'home', component: HomeComponent },
+  { path: 'home', component: HomeComponent },
   { path: 'user-profile', component: ProfileComponent },
   { path: 'register', component: SignupComponent },
   {

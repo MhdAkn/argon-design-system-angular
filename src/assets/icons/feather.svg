@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+    xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1128 552">
+    <defs>
+        <svg id="instagram" x="576" y="240" viewBox="0 0 24 24">
+            <path fill="none" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" d="M7 2h10a5 5 0 015 5v10a5 5 0 01-5 5H7a5 5 0 01-5-5V7a5 5 0 015-5z"/>
+            <path fill="none" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" d="M16 11.37a4 4 0 11-3.348-3.367L12.63 8a4.008 4.008 0 013.367 3.348l.003.022zM17.5 6.5h.01"/>
+        </svg>
+        <svg id="x-circle" x="432" y="528" viewBox="0 0 24 24">
+            <path fill="none" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" d="M22 12c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2s10 4.477 10 10zM15 9l-6 6M9 9l6 6"/>
+        </svg>
+        <svg id="chevron-up" x="48" y="96" viewBox="0 0 24 24">
+            <path fill="none" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" d="M18 15l-6-6-6 6"/>
+        </svg>
+        <svg id="chevron-down" x="1056" y="48" viewBox="0 0 24 24">
+            <path fill="none" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" d="M6 9l6 6 6-6"/>
+        </svg>
+        <svg id="twitter" x="432" y="480" viewBox="0 0 24 24">
+            <path fill="none" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" d="M23 3c-.9.642-1.943 1.164-3.063 1.509l-.077.021A4.48 4.48 0 0012 7.47v.063-.003 1a10.646 10.646 0 01-8.977-4.496l-.022-.033s-4 9 5 13A11.54 11.54 0 01.978 19l.023.001c9 5 20 0 20-11.5a4.5 4.5 0 00-.085-.859l.005.029a7.717 7.717 0 002.069-3.617l.011-.053z"/>
+        </svg>
+        <svg id="facebook" x="48" y="192" viewBox="0 0 24 24">
+            <path fill="none" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1v0h3z"/>
+        </svg>
+        <svg id="alert-triangle" x="192" y="0" viewBox="0 0 24 24">
+            <path fill="none" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" d="M10.29 3.86L1.82 18a2 2 0 001.709 3H20.47a2 2 0 001.705-3.01l.005.009-8.47-14.14a2.003 2.003 0 00-3.415-.009l-.005.009zM12 9v4M12 17h.01"/>
+        </svg>
+        <svg id="user" x="960" y="480" viewBox="0 0 24 24">
+            <path fill="none" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" d="M20 21v-2a4 4 0 00-4-4v0H8a4 4 0 00-4 4v2M16 7a4 4 0 11-8 0 4 4 0 018 0z"/>
+        </svg>
+        <svg id="users" x="1008" y="480" viewBox="0 0 24 24">
+            <path fill="none" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" d="M17 21v-2a4 4 0 00-4-4v0H5a4 4 0 00-4 4v2M13 7a4 4 0 11-8 0 4 4 0 018 0zM23 21v-2a4.002 4.002 0 00-2.972-3.864L20 15.13M16 3.13c1.743.457 3.008 2.018 3.008 3.875s-1.265 3.418-2.98 3.869L16 10.88"/>
+        </svg>
+        <svg
+        id="arrow-down-circle"
+        x="576"
+        y="0"
+        viewBox="0 0 24 24">
+        <path
+            fill="none"
+            stroke-linejoin="round"
+            stroke-linecap="round"
+            stroke-width="2"
+            stroke="currentColor"
+            d="M22 12c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2s10 4.477 10 10z"/>
+        <path
+            fill="none"
+            stroke-linejoin="round"
+            stroke-linecap="round"
+            stroke-width="2"
+            stroke="currentColor"
+            d="M8 12l4 4 4-4M12 8v8"/>
+    </svg>
+        <svg
+            id="arrow-up-right"
+            x="1056"
+            y="0"
+            viewBox="0 0 24 24">
+            <path
+                fill="none"
+                stroke-linejoin="round"
+                stroke-linecap="round"
+                stroke-width="2"
+                stroke="currentColor"
+                d="M7 17L17 7M7 7h10v10"/>
+        </svg>
+        <svg id="bell" x="336" y="48" viewBox="0 0 24 24">
+            <path fill="none" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" d="M18 8A6 6 0 106 8v0c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2.002 2.002 0 01-3.455.009L10.27 21"/>
+        </svg>
+        <svg id="bell-off" x="288" y="48" viewBox="0 0 24 24">
+            <path fill="none" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" d="M13.73 21a2.002 2.002 0 01-3.455.009L10.27 21M18.63 13A17.501 17.501 0 0118 7.985V8M6.26 6.26A5.731 5.731 0 006 7.986v.015V8c0 7-3 9-3 9h14"/>
+            <path fill="none" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" d="M18 8v-.009a6 6 0 00-9.351-4.978l.021-.014M1 1l22 22"/>
+        </svg>
+        <svg id="chevron-right"
+            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+        </svg>
+        <svg id="filter" x="480" y="192" viewBox="0 0 24 24">
+            <path fill="none" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z"/>
+        </svg>
+        <svg id="user-minus" x="816" y="480" viewBox="0 0 24 24">
+            <path fill="none" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" d="M16 21v-2a4 4 0 00-4-4v0H5a4 4 0 00-4 4v2M12.5 7a4 4 0 11-8 0 4 4 0 018 0zM23 11h-6"/>
+        </svg>
+        <svg id="user-plus" x="864" y="480" viewBox="0 0 24 24">
+            <path fill="none" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" d="M16 21v-2a4 4 0 00-4-4v0H5a4 4 0 00-4 4v2M12.5 7a4 4 0 11-8 0 4 4 0 018 0zM20 8v6M23 11h-6"/>
+        </svg>
+        <svg id="upload" x="720" y="480" viewBox="0 0 24 24">
+            <path fill="none" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" d="M21 15v4a2 2 0 01-2 2v0H5a2 2 0 01-2-2v0-4M17 8l-5-5-5 5M12 3v12"/>
+        </svg>
+        <svg id="upload-cloud" x="672" y="480" viewBox="0 0 24 24">
+            <path fill="none" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" d="M12 12v9M20.39 18.39c1.565-.865 2.607-2.506 2.607-4.39a5 5 0 00-4.996-5h-1.26c-.921-3.477-4.039-5.998-7.745-5.998a8 8 0 00-5.987 13.306l-.007-.008"/>
+            <path fill="none" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" d="M16 16l-4-4-4 4"/>
+        </svg>
+        <svg id="user-check" x="768" y="480" viewBox="0 0 24 24">
+            <path fill="none" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" d="M16 21v-2a4 4 0 00-4-4v0H5a4 4 0 00-4 4v2M12.5 7a4 4 0 11-8 0 4 4 0 018 0zM17 11l2 2 4-4"/>
+        </svg>
+        <svg id="calendar" x="720" y="48" viewBox="0 0 24 24">
+            <path fill="none" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" d="M5 4h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V6a2 2 0 012-2zM16 2v4M8 2v4M3 10h18"/>
+        </svg>
+        <svg id="circle" x="336" y="96" viewBox="0 0 24 24">
+            <path fill="none" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" d="M22 12c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2s10 4.477 10 10z"/>
+        </svg>
+        <svg id="check-circle" x="912" y="48" viewBox="0 0 24 24">
+            <path fill="none" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" d="M22 11.08V12c-.003 5.52-4.479 9.994-10 9.994-5.523 0-10-4.477-10-10s4.477-10 10-10c1.474 0 2.873.319 4.133.891l-.063-.026"/>
+            <path fill="none" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" d="M22 4L12 14.01l-3-3"/>
+        </svg>
+        <svg id="eye-off" x="1104" y="144" viewBox="0 0 24 24">
+            <path fill="none" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" d="M17.94 17.94A9.995 9.995 0 0112.009 20H12c-7 0-11-8-11-8a18.605 18.605 0 015.017-5.908l.043-.032M9.9 4.24A8.865 8.865 0 0111.979 4h.023-.001c7 0 11 8 11 8a18.62 18.62 0 01-2.182 3.217l.022-.027m-6.721-1.07a3 3 0 11-4.242-4.238l.002-.002M1 1l22 22"/>
+        </svg>
+        <svg id="eye" x="0" y="192" viewBox="0 0 24 24">
+            <path fill="none" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+            <path fill="none" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+        </svg>
+        <svg id="edit-3" x="960" y="144" viewBox="0 0 24 24">
+            <path fill="none" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" d="M12 20h9M16.5 3.5a2.12 2.12 0 113 3L7 19l-4 1 1-4L16.5 3.5z"/>
+        </svg>
+        <svg id="disc" x="672" y="144" viewBox="0 0 24 24">
+            <path fill="none" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" d="M22 12c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2s10 4.477 10 10z"/>
+            <path fill="none" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+        </svg>
+        <svg id="edit" x="1008" y="144" viewBox="0 0 24 24">
+            <path fill="none" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2v0h14a2 2 0 002-2v0-7"/>
+            <path fill="none" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" d="M18.5 2.5a2.12 2.12 0 113 3L12 15l-4 1 1-4 9.5-9.5z"/>
+        </svg>
+    </defs>
+</svg>

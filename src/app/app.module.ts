@@ -23,6 +23,10 @@ import { CoreModule } from './core/core.module';
 import { HttpClientModule } from '@angular/common/http';
 import { InitDateModule } from './shared/initialise-date/initialise-date.pipe.module';
 import { LikesComponent } from './pages/likes/likes.component';
+import { FuseConfirmationService } from '../confirmation/confirmation.service';
+import { FuseConfirmationModule } from '../confirmation/confirmation.module';
+import { MatIconModule } from '@angular/material/icon';
+import { MATERIAL_SANITY_CHECKS } from '@angular/material/core';
 // import { MAT_DATE_LOCALE } from "@angular/material/core";
 
 
@@ -59,12 +63,30 @@ export function tokenGetter() {
     AppRoutingModule,
     CommonModule,
     CoreModule,
+    MatIconModule,
     HttpClientModule,
+    FuseConfirmationModule,
     InitDateModule
 
   ],
   providers: [AuthServices,
     CustomPreloadingWithDelayStrategy,
+    {
+      // Disable 'theme' sanity check
+      provide: MATERIAL_SANITY_CHECKS,
+      useValue: {
+          doctype: true,
+          theme: false,
+          version: true
+      }
+  },
+  // {
+  //     // Use the 'fill' appearance on Angular Material form fields by default
+  //     provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
+  //     useValue: {
+  //         appearance: 'fill'
+  //     }
+  // }
     // { provide: MAT_DATE_LOCALE, useValue: "fr" },
     { provide: LOCALE_ID, useValue: 'fr' },
     { provide: LocationStrategy, useClass: PathLocationStrategy },
