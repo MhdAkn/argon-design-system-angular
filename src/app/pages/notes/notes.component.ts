@@ -10,6 +10,8 @@ import { HttpCode } from '../../enums/EN_SHARED/EN_HttpCode.enum';
 import { NoteWithLikeInfo } from '../../playloads/note.playload';
 import { environment } from '../../../environments/environment';
 import { NoteType } from '../../enums/EN_NOTES/EN_NoteType.enum';
+import { NoteService } from '../../services/note.service';
+import { FuseConfirmationService } from '../../../@fuse/services/confirmation/confirmation.service';
 
 @Component({
   selector: 'app-notes',
@@ -28,14 +30,16 @@ export class NotesComponent implements OnInit {
   appUrl = environment.appUrl
   PUBLIC_NoteType = NoteType.PUBLIC
   PRIVATE_NoteType = NoteType.PRIVATE
-  notesLiked: Note[]
+  notesList: Note[];
   constructor(
     private activateRoute: ActivatedRoute,
     private route: Router,
     private authService: AuthServices,
     private noteService: NoteService,
     private _changeDetector: ChangeDetectorRef,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private _fuseConfirmationService: FuseConfirmationService,
+
   ) {
 
   }
@@ -127,6 +131,47 @@ export class NotesComponent implements OnInit {
     window.location.href = `notes/${note.id}/detail`
   }
 
+  deleteNote(note: Note) {
+    const confirmation = this._fuseConfirmationService.open({
+      title: 'Supression de note',
+      icon: {
+        color: 'warning',
+      },
+      message: "Confirmez-vous la suppression de la note ?",
+      actions: {
+        confirm: {
+          label: 'Oui, Confirmer',
+          color: 'primary',
+        },
+        cancel: {
+          label: 'Annuler'
+        },
+      }
+    });
+    confirmation.afterClosed().subscribe(async (result) => {
+      if (result === 'confirmed') {
+        this.noteService.deleteNote({ noteId: note.id, userId: this.currentUser.id }).subscribe({
+          next:
+            (res) => {
+              if (res.status == HttpCode.SUCCESS) {
+                const index = this.notesList.findIndex(objet => objet.id === note.id);
+                console.log(index);
+                
+                if (index >= 0) {
+                  this.notesList.splice(index, 1)
+                  console.log(this.notesList);
+                  this._changeDetector.markForCheck()
+                }
+                this.alertService.showToast('Note supprimée avec succés', 'success', 'top-center');
+              } else {
+                this.alertService.showToast('Supression échoué', 'error', 'top-center');
+              }
+            }
+        })
+      }
+    }
+    );
+  }
 
 }
 
