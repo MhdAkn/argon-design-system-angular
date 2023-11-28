@@ -11,7 +11,7 @@ import { NoteWithLikeInfo } from '../../playloads/note.playload';
 import { environment } from '../../../environments/environment';
 import { NoteType } from '../../enums/EN_NOTES/EN_NoteType.enum';
 import { NoteService } from '../../services/note.service';
-import { FuseConfirmationService } from '../../../@fuse/services/confirmation/confirmation.service';
+import { FuseConfirmationService } from '../../../confirmation/confirmation.service';
 
 @Component({
   selector: 'app-notes',
