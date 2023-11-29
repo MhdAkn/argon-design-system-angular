@@ -11,14 +11,17 @@ import { User } from '../../models/user';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NavbarComponent implements OnInit {
-    public isCollapsed = true;
+    public isCollapsed;
     private lastPoppedUrl: string;
     private yScrollStack: number[] = [];
     isConnect: boolean = false
+    currentUser: User
     constructor(public location: Location, private router: Router, private _utilsService: UtilsService, private _detector: ChangeDetectorRef,
 
     ) {
+        this.isCollapsed = true;
         this.isConnect = this.getUserConnect() != null || this.getUserConnect() != undefined ? true : false
+        this.currentUser = this.getUserConnect()
         this._detector.markForCheck();
         console.log(this.isConnect);
         console.log(this.getUserConnect());
@@ -47,6 +50,14 @@ export class NavbarComponent implements OnInit {
     }
     getUserConnect(): User {
         return this._utilsService.READ_LOCAL_ENCODE(localStorage.CURRENT_USER);
+    }
+    close() {
+        this.isCollapsed = false
+    }
+
+    toggle() {
+        this.isCollapsed = true
+        this._detector.markForCheck()
     }
     isHome() {
         var titlee = this.location.prepareExternalUrl(this.location.path());

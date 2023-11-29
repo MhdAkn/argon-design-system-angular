@@ -4,7 +4,7 @@
     <a class="navbar-brand mr-lg-5 h-2" [routerLink]="['/news']">
       NOTARO
     </a>
-    <button class="navbar-toggler" type="button" (click)="isCollapsed = !isCollapsed"
+    <button class="navbar-toggler" type="button" (click)="close()"
       [attr.aria-expanded]="!isCollapsed" aria-controls="navbar_global">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -26,6 +26,7 @@
         </div>
       </div>
       <ul class="navbar-nav navbar-nav-hover align-items-lg-center">
+        <!-- {{isConnect|json}} -->
         <ng-container *ngIf="isConnect">
 
           <li class="nav-item dropdown summary">
@@ -35,7 +36,7 @@
             </a>
           </li>
           <li class="nav-item dropdown summary">
-            <a class="nav-link no-caret" data-toggle="dropdown" role="button">
+            <a class="nav-link no-caret" data-toggle="dropdown" [routerLink]="['/notes']" role="button">
               <i class="ni ni-bullet-list-67 d-lg-none"></i>
               <span class="nav-link-inner--text">Listes des notes</span>
             </a>
@@ -47,7 +48,7 @@
             </a>
           </li>
           <li class="nav-item dropdown summary">
-            <a class="nav-link no-caret" data-toggle="dropdown" [routerLink]="['/user-profile']" role="button">
+            <a class="nav-link no-caret" data-toggle="dropdown" [routerLink]="['/user-profile/'+currentUser.pseudo]" role="button">
               <i class="ni ni-vector d-lg-none"></i>
               <span class="nav-link-inner--text">Profile</span>
             </a>

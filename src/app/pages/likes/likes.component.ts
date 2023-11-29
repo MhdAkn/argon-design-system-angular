@@ -71,7 +71,7 @@ export class LikesComponent implements OnInit {
     return `btn-${colorClass}`;
   }
 
-  updateLock($event, noteId: string, isLiked: boolean) {
+  saveOrRemoveLike($event, noteId: string, isLiked: boolean) {
     $event.stopPropagation();
     if (this.authService.isAuthenticated()) {
 

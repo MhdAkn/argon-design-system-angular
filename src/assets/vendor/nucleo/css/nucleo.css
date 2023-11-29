@@ -30,9 +30,13 @@ License - nucleoapp.com/license/
   line-height: 0.75em;
   vertical-align: -15%;
 }
-.ni-2x {
-  font-size: 2em;
+.ni-14px {
+  font-size: 14px;
 }
+
+.ni-2x {
+    font-size: 2em;
+  }
 .ni-3x {
   font-size: 3em;
 }

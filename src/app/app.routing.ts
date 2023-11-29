@@ -14,10 +14,15 @@ import { NoteDetailsResolver } from './resolvers/note-details.resolver';
 import { NotesListesByUsersResolver } from './resolvers/note.resolver';
 import { LikesComponent } from './pages/likes/likes.component';
 import { NotesComponent } from './pages/notes/notes.component';
+import { UserDetailResolver } from './resolvers/user-detailsresolver';
 
 export const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
-  { path: 'user-profile', component: ProfileComponent },
+  {
+    path: 'user-profile/:pseudo', component: ProfileComponent, resolve: {
+      user: UserDetailResolver, DataIfno: LikesListesByUsersResolver
+    },
+  },
   { path: 'register', component: SignupComponent },
   {
     path: 'news',

@@ -17,7 +17,7 @@
         <div class="col px-0">
           <div class="row">
             <div class="col-lg-6">
-              <h1 class="display-3 text-white">Favoris
+              <h1 class="display-3 text-white">Mes notes
               </h1>
               <p class="lead  text-white">Optimisez votre recherche d'inspiration avec la page de favoris, où vous
                 pouvez sauvegarder et organiser vos idées créatives, images inspirantes et projets en cours, pour rester
@@ -53,16 +53,17 @@
                         <i class="fa fa-lock" *ngIf="newNote.typeNotes==PRIVATE_NoteType"></i>
                       </div>
                       <h6 class="text-primary text-uppercase">
-                        <input class="form-control" formControlName="title" placeholder="Titre" type="text"
+                        <input class="form-control pl-2" formControlName="title" placeholder="Titre" type="text"
                           (focus)="focus=true" (blur)="focus=false">
                       </h6>
-                      <p class="description mt-3">
-                        <textarea class="form-control form-control-alternative" formControlName="contenu" name="name"
-                          rows="4" cols="80" placeholder="Saisissez le contenu...">
-                      </textarea>
-                      </p>
+                      <div class="form-group mb-2">
+                        <p class="description mt-3">
+                          <textarea class="form-control form-control-alternative" formControlName="contenu" rows="4"
+                            cols="80" placeholder="Saisissez le contenu..."></textarea>
+                        </p>
+                      </div>
                       <div class="text-center">
-                        <button  type="submit" class="btn btn-primary my-4">Enregistrer</button>
+                        <button type="submit" class="btn btn-primary my-2">Enregistrer</button>
                       </div>
                     </div>
                   </div>
@@ -72,41 +73,51 @@
             <ng-container *ngIf="createNewNote">
               <div class="col-lg-4 mb-4">
                 <div class="card card-lift--hover shadow border-0">
-                  <div class="card-body py-5">
-                    <mat-icon class="text-secondary  justify-content-center"
-                      [svgIcon]="'heroicons_solid:plus-circle'"></mat-icon>
+                  <div class="row card-body py-5 justify-content-center">
+                    <h6 class="text-primary text-uppercase">Ajouter une nouvelle note</h6>
+                    <p class="description mt-3 line-clamp-3">Cliquer sur le bouton en dessous pour créer une note</p>
+
+                    <mat-icon class="text-black icon-size-8 cursor-pointer" [svgIcon]="'heroicons_solid:plus-circle'"
+                      (click)="createNew()"></mat-icon>
                   </div>
                 </div>
               </div>
             </ng-container>
             <ng-container *ngFor="let item of notesList, let i =index">
-              <div class="col-lg-4 mb-4">
-                <div class="card card-lift--hover shadow border-0">
+              <div class="col-lg-4 mb-0">
+                <div class="card h-fit card-lift--hover shadow border-0">
                   <div class="card-body py-5">
-                    <div class="icon icon-shape rounded-circle mb-4" (click)="updateLock($event,item.note.id,item.note)"
-                      [ngClass]="{'icon-shape-danger': item.note.typeNotes==PRIVATE_NoteType,'icon-shape-success': item.note.typeNotes==PUBLIC_NoteType}">
-                      <i class="fa fa-unlock" *ngIf="item.note.typeNotes==PUBLIC_NoteType"></i>
-                      <i class="fa fa-lock" *ngIf="item.note.typeNotes==PRIVATE_NoteType"></i>
+                    <div class="icon icon-shape rounded-circle mb-4" (click)="updateLock($event,item.id,item)"
+                      [ngClass]="{'icon-shape-danger': item.typeNotes==PRIVATE_NoteType,'icon-shape-success': item.typeNotes==PUBLIC_NoteType}">
+                      <i class="fa fa-unlock" *ngIf="item.typeNotes==PUBLIC_NoteType"></i>
+                      <i class="fa fa-lock" *ngIf="item.typeNotes==PRIVATE_NoteType"></i>
                     </div>
-                    <h6 class="text-primary text-uppercase">{{item.note.title}}</h6>
-                    <p class="description mt-3 line-clamp-3" *ngIf="!item.note.showParagraph">{{item.note.content}}</p>
-                    <p class="description mt-3" *ngIf="item.note.showParagraph">{{item.note.content}}</p>
+                    <h6 class="text-primary text-uppercase">{{item.title}}</h6>
+                    <p class="description mt-3 line-clamp-3" *ngIf="!item.showParagraph">{{item.content}}</p>
+                    <p class="description mt-3" *ngIf="item.showParagraph">{{item.content}}</p>
+                    <span class="ni-14px">
+                      {{item.createdAt|initDate|date:'longDate':'':'fr'}}&nbsp;{{item.createdAt
+                      |initDate|date:'HH':'':'fr'}}h{{item.createdAt |initDate|date:'mm':'':'fr'}}
+                    </span>
                     <div class="justify-content-between">
-                      <span class="badge badge-pill" [ngClass]="getBackgroundColorClass(i)">{{item.note.user.pseudo
-                        |titlecase}}</span>
                       <span class="">
-                        {{item.note.createdAt|initDate|date:'longDate':'':'fr'}}&nbsp;{{item.note.createdAt
-                        |initDate|date:'HH':'':'fr'}}h{{item.note.createdAt |initDate|date:'mm':'':'fr'}}</span>
+                        <button (click)="editNote(note)"
+                          class=" border mt-2 bg-hover btn btn-primary shadow-2xl rounded-lg bg-blue-300 text-white  p-1 top-0 right-0 text-center leading-4">
+                          <mat-icon class="font-bold icon-size-3" [svgIcon]="'mat_outline:edit'"></mat-icon>
+                        </button>
+                        <button (click)="deleteNote(note)"
+                          class=" cursor-pointer border btn btn-danger mt-2 bg-hover shadow-2xl rounded-lg text-white bg-red-300 p-1 top-0 right-0 text-center leading-4">
+                          <mat-icon class="font-bold icon-size-3" svgIcon="heroicons_outline:trash">
+                          </mat-icon>
+                        </button>
+                      </span>
                     </div>
-                    <a (click)="toggleParagraph(item.note)" class="btn text-light mt-4" [ngClass]="getBtnColorClass(i)">
-                      {{!item.note.showParagraph?'Voir plus':'Voir moins' |titlecase}}</a>
+                    <a (click)="toggleParagraph(item)" class="btn text-light mt-4" [ngClass]="getBtnColorClass(i)">
+                      {{!item.showParagraph?'Voir plus':'Voir moins' |titlecase}}</a>
                   </div>
                 </div>
               </div>
             </ng-container>
-
-
-
           </div>
         </div>
       </div>

@@ -27,6 +27,7 @@ import { FuseConfirmationService } from '../confirmation/confirmation.service';
 import { FuseConfirmationModule } from '../confirmation/confirmation.module';
 import { MatIconModule } from '@angular/material/icon';
 import { MATERIAL_SANITY_CHECKS } from '@angular/material/core';
+import { NotesComponent } from './pages/notes/notes.component';
 // import { MAT_DATE_LOCALE } from "@angular/material/core";
 
 
@@ -47,6 +48,7 @@ export function tokenGetter() {
     SignupComponent,
     LandingComponent,
     LikesComponent,
+    NotesComponent,
     ProfileComponent,
     NavbarComponent,
     FooterComponent,

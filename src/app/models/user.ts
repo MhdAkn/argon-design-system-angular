@@ -15,6 +15,6 @@ export class User extends BaseEntity {
     profile: UserProfileMedia
     like: Like[]
     acceptTerm: boolean
-
+    biographie: string
     rememberMe: boolean
 }

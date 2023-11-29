@@ -26,7 +26,7 @@ export class NotesComponent implements OnInit {
   currentUser: User
   isConnect: boolean
   ContactForm: FormGroup;
-  allNotesLikes: NoteWithLikeInfo[]
+  // allNotesLikes: NoteWithLikeInfo[]
   appUrl = environment.appUrl
   PUBLIC_NoteType = NoteType.PUBLIC
   PRIVATE_NoteType = NoteType.PRIVATE
@@ -46,29 +46,33 @@ export class NotesComponent implements OnInit {
     private _fuseConfirmationService: FuseConfirmationService,
 
   ) {
-
+    this.NewNoteForm = new FormGroup({
+      title: new FormControl('', Validators.required),
+      contenu: new FormControl('Saisissez le contenu...', Validators.required),
+    })
   }
   ngOnInit(): void {
     let _activatedRoute: { user?: User, DataInfo?: ApiResponse } = this.activateRoute.snapshot.data
     console.log(_activatedRoute);
-    this.allNotesLikes = _activatedRoute.DataInfo.data
-    this.allNotesLikes.map((note) => note.note.showParagraph = false)
+    this.notesList = _activatedRoute.DataInfo.data
+    this.notesList.map((note) => note.showParagraph = false)
     this.newNote = new Note()
     this.newNote.typeNotes = this.PRIVATE_NoteType
-    console.log(this.allNotesLikes);
+    // console.log(this.allNotesLikes);
+    // console.log(this.allNotesLikes);
     if (this.isNewNote) {
       this.NewNoteForm = new FormGroup({
         title: new FormControl('', Validators.required),
-        contenu: new FormControl('', Validators.required),
+        contenu: new FormControl('Saisissez le contenu...', Validators.required),
       })
     }
 
     this.currentUser = _activatedRoute.user
   }
   toggleParagraph(item: Note) {
-    this.allNotesLikes.find((note) => {
-      if (note.note.id == item.id) {
-        note.note.showParagraph = !item.showParagraph
+    this.notesList.find((note) => {
+      if (note.id == item.id) {
+        note.showParagraph = !item.showParagraph
         this._changeDetector.markForCheck();
       }
     })
@@ -146,7 +150,9 @@ export class NotesComponent implements OnInit {
   goToDetail(note) {
     window.location.href = `notes/${note.id}/detail`
   }
-
+  editNote(){
+    
+  }
   deleteNote(note: Note) {
     const confirmation = this._fuseConfirmationService.open({
       title: 'Supression de note',
@@ -188,6 +194,54 @@ export class NotesComponent implements OnInit {
     }
     );
   }
+  updateNote() {
+    // if (this.UpdateForm.invalid) {
+    //   return;
+    // } else {
+    //   console.log(this.UpdateForm.value);
+
+    //   let title
+    //   let content
+    //   let typeNotes
+    //   console.log(this.UpdateForm.value.nom);
+    //   if (this.beforNotes.title !== this.UpdateForm?.value?.nom && (this.UpdateForm?.value?.nom !== undefined || this.UpdateForm?.value?.nom !== null)) {
+    //     // console.log(this.UpdateForm.value.title);
+    //     title = this.UpdateForm.value.nom
+    //   }
+    //   if (this.beforNotes.content !== this.UpdateForm.value.contenu) {
+    //     content = this.UpdateForm.value.contenu.toString()
+    //   }
+    //   if (this.beforNotes.typeNotes !== this.UpdateForm.value.typeNote) {
+    //     typeNotes = this.UpdateForm.value.typeNote.toString()
+    //   }
+    //   // if (this.currentUser !== undefined && this.currentUser !== null && note !== null && note !== undefined) {
+    //   this.noteService.updateNote({ note: { title: title, typeNotes: typeNotes, content: content }, userId: this.currentUser.id }).subscribe({
+    //     next:
+    //       (res) => {
+    //         if (res.status == HttpCode.SUCCESS) {
+    //           this._matDialogRef.close(res.data)
+    //         } else {
+    //           this._matDialogRef.close(this.beforNotes)
+    //           this._alertService.showToast('Modification échouée', 'error', 'top-center');
+    //         }
+    //       }
+    //   })
+    //   // window.location.href = 'notes'
+    //   // }
+    // }
+
+  }
+  checkChange() {
+    // if (this.beforNotes.title !== this.UpdateForm?.value?.nom && (this.UpdateForm?.value?.nom !== undefined || this.UpdateForm?.value?.nom !== null)) { this.titleChange = false } else { this.titleChange = true }
+    // if (this.beforNotes.content !== this.UpdateForm.value.contenu) { this.contentChange = false } else { this.contentChange = true }
+    // if (this.beforNotes.typeNotes !== this.UpdateForm.value.typeNote) { this.typeChange = false } else { this.typeChange = true }
+    // console.log(this.titleChange,this.contentChange,this.typeChange);
+    
+  }
+  createNew(){
+    this.isNewNote=true
+    this.createNewNote=false
+  }
   onSubmit() {
     if (this.NewNoteForm.invalid) {
       return;
@@ -206,9 +260,9 @@ export class NotesComponent implements OnInit {
           next:
             (res) => {
               if (res.status == HttpCode.SUCCESS) {
-                this.allNotesLikes[this.allNotesLikes.length].note = res.data
-                this.allNotesLikes[this.allNotesLikes.length].isLiked = false
-                this.allNotesLikes[this.allNotesLikes.length].note.showParagraph = false
+                this.notesList[this.notesList.length] = res.data
+                this.notesList[this.notesList.length].isLiked = false
+                this.notesList[this.notesList.length].showParagraph = false
                 this.alertService.showToast('Note ajoutée avec succés', 'success', 'top-center');
               } else {
                 this.alertService.showToast('Ajout échoué', 'error', 'top-center');
