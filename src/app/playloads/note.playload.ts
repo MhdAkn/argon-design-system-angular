@@ -6,6 +6,7 @@ export class NewNotePlayload {
     content: string;
     image?: Media
     typeNotes: string
+    noteId?:string
 }
 
 export type NoteWithLikeInfo = {

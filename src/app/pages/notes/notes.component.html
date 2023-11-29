@@ -83,8 +83,37 @@
                 </div>
               </div>
             </ng-container>
+            <ng-container *ngIf="isUpdateNote">
+              <div class="col-lg-4 mb-4">
+                <form [formGroup]="UpdateNoteForm" (ngSubmit)="updateNote()">
+                  <div class="card card-lift--hover shadow border-0">
+                    <div class="card-body py-5">
+                      <div class="icon icon-shape rounded-circle mb-4" (click)="updateLockNew(updateNote)"
+                        [ngClass]="{'icon-shape-danger': updateNote.typeNotes==PRIVATE_NoteType,'icon-shape-success': newNote.typeNotes==PUBLIC_NoteType}">
+                        <i class="fa fa-unlock" *ngIf="updateNote.typeNotes==PUBLIC_NoteType"></i>
+                        <i class="fa fa-lock" *ngIf="updateNote.typeNotes==PRIVATE_NoteType"></i>
+                      </div>
+                      <h6 class="text-primary text-uppercase">
+                        <input class="form-control pl-2" formControlName="title" placeholder="Titre" type="text"
+                          (focus)="focus=true" (blur)="focus=false">
+                      </h6>
+                      <div class="form-group mb-2">
+                        <p class="description mt-3">
+                          <textarea class="form-control form-control-alternative" formControlName="contenu" rows="4"
+                            cols="80" placeholder="Saisissez le contenu..."></textarea>
+                        </p>
+                      </div>
+                      <div class="text-center">
+                        <button type="submit" class="btn btn-primary my-2">Enregistrer</button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </ng-container>
             <ng-container *ngFor="let item of notesList, let i =index">
-              <div class="col-lg-4 mb-0">
+             
+              <div class="col-lg-4 mb-2">
                 <div class="card h-fit card-lift--hover shadow border-0">
                   <div class="card-body py-5">
                     <div class="icon icon-shape rounded-circle mb-4" (click)="updateLock($event,item.id,item)"
@@ -101,18 +130,18 @@
                     </span>
                     <div class="justify-content-between">
                       <span class="">
-                        <button (click)="editNote(note)"
+                        <button (click)="editNote(item)"
                           class=" border mt-2 bg-hover btn btn-primary shadow-2xl rounded-lg bg-blue-300 text-white  p-1 top-0 right-0 text-center leading-4">
                           <mat-icon class="font-bold icon-size-3" [svgIcon]="'mat_outline:edit'"></mat-icon>
                         </button>
-                        <button (click)="deleteNote(note)"
+                        <button (click)="deleteNote(item)"
                           class=" cursor-pointer border btn btn-danger mt-2 bg-hover shadow-2xl rounded-lg text-white bg-red-300 p-1 top-0 right-0 text-center leading-4">
                           <mat-icon class="font-bold icon-size-3" svgIcon="heroicons_outline:trash">
                           </mat-icon>
                         </button>
                       </span>
                     </div>
-                    <a (click)="toggleParagraph(item)" class="btn text-light mt-4" [ngClass]="getBtnColorClass(i)">
+                    <a (click)="toggleParagraph(item)" class="btn text-white mt-4" [ngClass]="getBtnColorClass(i)">
                       {{!item.showParagraph?'Voir plus':'Voir moins' |titlecase}}</a>
                   </div>
                 </div>

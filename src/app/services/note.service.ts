@@ -55,6 +55,7 @@ export class NoteService {
     }
 
     updateNote(reqData: { note: NewNotePlayload, userId: string }): Observable<ApiResponse> {
+        console.log(reqData);
         return this._httpClient.post<ApiResponse>(`${this.apiUrl}note${NoteRoutes.UPDATE_NOTE}`, { reqData: reqData }, this.options)
     }
 
