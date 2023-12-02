@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from '../../models/user';
 import { ApiResponse } from '../../response/api-response';
@@ -12,6 +12,10 @@ import { environment } from '../../../environments/environment';
 import { NoteType } from '../../enums/EN_NOTES/EN_NoteType.enum';
 import { NoteService } from '../../services/note.service';
 import { FuseConfirmationService } from '../../../confirmation/confirmation.service';
+import { MatDialog } from '@angular/material/dialog';
+import { MmessagesListComponent } from '../messages-list/messages-list.component';
+import { LandingComponent } from '../landing/landing.component';
+import { TestoComponent } from './testo/testo.component';
 
 @Component({
   selector: 'app-notes',
@@ -38,12 +42,13 @@ export class NotesComponent implements OnInit {
   NewNoteForm: FormGroup;
   UpdateNoteForm: FormGroup;
   updatenote: Note
-
+  @ViewChild('premierBloc') premierBloc: ElementRef;
   constructor(
     private activateRoute: ActivatedRoute,
     private route: Router,
     private authService: AuthServices,
     private noteService: NoteService,
+    private dialog: MatDialog,
     private _changeDetector: ChangeDetectorRef,
     private alertService: AlertService,
     private _fuseConfirmationService: FuseConfirmationService,
@@ -83,6 +88,11 @@ export class NotesComponent implements OnInit {
         this._changeDetector.markForCheck();
       }
     })
+  }
+  open(note) {
+    const refundDialog = this.dialog.open(TestoComponent, { hasBackdrop: true, width: '35%', panelClass: ['clotpaRese'] });
+    // refundDialog.componentInstance.activeReservation = reservation;
+    refundDialog.afterClosed().subscribe((res: ApiResponse) => { })
   }
 
   getBackgroundColorClass(index: number) {
@@ -136,14 +146,20 @@ export class NotesComponent implements OnInit {
     window.location.href = `notes/${note.id}/detail`
   }
   editNote(note: Note) {
+    console.log('note');
+    
     this.updatenote = note
     this.isUpdateNote = true
     this.UpdateNoteForm = new FormGroup({
       title: new FormControl(note.title, Validators.required),
       contenu: new FormControl(note.content, Validators.required),
     })
+    this.premierBloc.nativeElement.scrollIntoView({ behavior: 'smooth' });
+    // this.premierBloc.nativeElement.scrollIntoView({ behavior: 'smooth' });
   }
   deleteNote(note: Note) {
+    console.log('ENTER DELETE');
+
     const confirmation = this._fuseConfirmationService.open({
       title: 'Supression de note',
       icon: {
@@ -275,19 +291,15 @@ export class NotesComponent implements OnInit {
         typeNotes: this.updatenote.typeNotes,
         noteId: this.updatenote.id
       }
-      console.log(note);
-      console.log(this.currentUser);
-
-      console.log({ note: note, userId: this.currentUser.id });
       if (this.currentUser !== undefined && this.currentUser !== null && note !== null && note !== undefined) {
         this.noteService.updateNote({ note: note, userId: this.currentUser.id }).subscribe({
           next:
             (res) => {
               if (res.status == HttpCode.SUCCESS) {
-                this.notesList[this.notesList.length] = res.data
-                this.notesList[this.notesList.length].isLiked = false
-                this.notesList[this.notesList.length].showParagraph = false
-                this.alertService.showToast('Note ajoutée avec succés', 'success', 'top-center');
+                let index = this.notesList.findIndex((notes) => notes.id == note.noteId)
+                this.notesList[index] = res.data
+                console.log(res.data);
+                this.alertService.showToast('Note modifiée avec succés', 'success', 'top-center');
               } else {
                 this.alertService.showToast('Ajout échoué', 'error', 'top-center');
               }

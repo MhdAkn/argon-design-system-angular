@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ApiResponse } from '../../response/api-response';
 import { User } from '../../models/user';
 import { NoteType } from '../../enums/EN_NOTES/EN_NoteType.enum';
@@ -16,14 +16,17 @@ import { cloneDeep } from "lodash";
 })
 
 export class ProfileComponent implements OnInit {
+    userDetail: User
     currentUser: User
     whoManyNotePublic: number
     whoManyLikes: number
     whoManyNotePrivate: number
     BiographyForm: FormGroup
     isUpdateBiography: boolean = false
+    isNotCurrentUser: boolean
     constructor(
         private activateRoute: ActivatedRoute,
+        private Router: Router,
         private userService: UserService,
         private alertService: AlertService,
         private _changeDetector: ChangeDetectorRef,
@@ -36,13 +39,20 @@ export class ProfileComponent implements OnInit {
     }
 
     ngOnInit() {
-        let _activatedRoute: { user?: ApiResponse, DataInfo?: ApiResponse } = this.activateRoute.snapshot.data
+        let _activatedRoute: { userDetail?: ApiResponse, currentUser?: User, DataInfo?: ApiResponse } = this.activateRoute.snapshot.data
         console.log(_activatedRoute);
-        this.currentUser = _activatedRoute.user.data
-        console.log(this.currentUser);
-        this.whoManyLikes = this.currentUser.like.length
-        this.whoManyNotePublic = this.currentUser.note.filter((note) => note.typeNotes == NoteType.PUBLIC).length
-        this.whoManyNotePrivate = this.currentUser.note.length - this.whoManyNotePublic
+        this.userDetail = _activatedRoute.userDetail.data
+        this.currentUser = _activatedRoute.currentUser
+        let parametre = this.activateRoute.snapshot.paramMap.get('pseudo');
+        this.isNotCurrentUser = this.currentUser.pseudo !== parametre ? true : false
+        console.log(this.userDetail.pseudo);
+        console.log(parametre);
+
+
+
+        this.whoManyLikes = this.userDetail.like.length
+        this.whoManyNotePublic = this.userDetail.note.filter((note) => note.typeNotes == NoteType.PUBLIC).length
+        this.whoManyNotePrivate = this.userDetail.note.length - this.whoManyNotePublic
         console.log();
 
     }
@@ -56,7 +66,7 @@ export class ProfileComponent implements OnInit {
         if (this.BiographyForm.invalid) {
             return;
         } else {
-            let user: User = cloneDeep(this.currentUser)
+            let user: User = cloneDeep(this.userDetail)
             user.biographie = this.BiographyForm.value.contenu
             console.log(user);
 
@@ -67,7 +77,7 @@ export class ProfileComponent implements OnInit {
                         this._changeDetector.markForCheck();
                         if (res.status == HttpCode.SUCCESS) {
                             console.log(res.data);
-                            this.currentUser = res.data
+                            this.userDetail = res.data
                             this.alertService.showToast('Modification réussie', 'success', 'top-center');
                         } else {
                             this.alertService.showToast('Modification échouée', 'error', 'top-center');

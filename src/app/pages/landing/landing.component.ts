@@ -12,6 +12,7 @@ import { HttpCode } from '../../enums/EN_SHARED/EN_HttpCode.enum';
 import { NoteWithLikeInfo } from '../../playloads/note.playload';
 import { environment } from '../../../environments/environment';
 import { FuseConfirmationService } from '../../../confirmation/confirmation.service';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-landing',
@@ -29,11 +30,11 @@ export class LandingComponent implements OnInit {
   allNotesList: Note[]
   notesNews: NoteWithLikeInfo[]
   appUrl = environment.appUrl
-
+  allUsersList: User[]
   constructor(
     private activateRoute: ActivatedRoute,
     private route: Router,
-    private _utilsService: UtilsService,
+    private userService: UserService,
     private _alertService: AlertService,
     private _detector: ChangeDetectorRef,
     private likeService: LikeService,
@@ -43,10 +44,11 @@ export class LandingComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    let _activatedRouteData: { DataInfo?: ApiResponse, user?: User, } = this.activateRoute.snapshot.data
+    let _activatedRouteData: { DataInfo?: ApiResponse, user?: User, AllUsers?: ApiResponse } = this.activateRoute.snapshot.data
     console.log(_activatedRouteData);
     this.currentUser = _activatedRouteData.user
     this.allNotesList = _activatedRouteData.DataInfo.data
+    this.allUsersList = _activatedRouteData.AllUsers.data
     this.notesNews = _activatedRouteData.DataInfo.data
     this.notesNews.map((note) => note.note.showParagraph = false)
     this.isConnect = this.currentUser != null || this.currentUser != undefined ? true : false
@@ -60,7 +62,26 @@ export class LandingComponent implements OnInit {
     if (this.ContactForm.invalid) {
       return;
     } else {
-
+      let reqData: {
+        pseudo: string;
+        email: string;
+        message: string;
+      } = {
+        email: this.ContactForm.value.email,
+        pseudo: this.ContactForm.value.pseudo,
+        message: this.ContactForm.value.message,
+      }
+      this.userService.sendMessage(reqData).subscribe({
+        next: (response) => {
+          if (response.status == HttpCode.SUCCESS) {
+            this._alertService.showToast('Votre message a été envoyée!', 'success', 'top-center')
+            this._detector.markForCheck();
+          } else {
+            this._alertService.showToast('Oops une erreur est survenue! Veuillez réessayer plus tard!', 'error', 'top-center')
+          }
+          this.ContactForm.reset()
+        }
+      })
     }
 
   }

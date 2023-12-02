@@ -41,6 +41,7 @@ export class NoteService {
         return this._httpClient.post<ApiResponse>(`${this.apiUrl}note${NoteRoutes.GET_NEWS}`, { reqData: reqData }, this.options)
     }
 
+  
     getNoteDetail(reqData: { noteId: string }): Observable<ApiResponse> {
         return this._httpClient.post<ApiResponse>(`${this.apiUrl}note${NoteRoutes.GET_DETAIL_NOTE}`, { reqData: reqData }, this.options)
     }

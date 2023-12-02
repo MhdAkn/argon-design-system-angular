@@ -84,7 +84,7 @@
               </div>
             </ng-container>
             <ng-container *ngIf="isUpdateNote">
-              <div class="col-lg-4 mb-4">
+              <div class="col-lg-4 mb-4"#premierBloc>
                 <form [formGroup]="UpdateNoteForm" (ngSubmit)="updateNote()">
                   <div class="card card-lift--hover shadow border-0">
                     <div class="card-body py-5">

@@ -28,6 +28,7 @@ import { FuseConfirmationModule } from '../confirmation/confirmation.module';
 import { MatIconModule } from '@angular/material/icon';
 import { MATERIAL_SANITY_CHECKS } from '@angular/material/core';
 import { NotesComponent } from './pages/notes/notes.component';
+import { MmessagesListComponent } from './pages/messages-list/messages-list.component';
 // import { MAT_DATE_LOCALE } from "@angular/material/core";
 
 
@@ -51,6 +52,7 @@ export function tokenGetter() {
     NotesComponent,
     ProfileComponent,
     NavbarComponent,
+    MmessagesListComponent,
     FooterComponent,
     LoginComponent
   ],

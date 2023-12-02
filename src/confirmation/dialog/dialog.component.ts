@@ -7,15 +7,7 @@ import { FuseConfirmationConfig } from '../confirmation.types';
     templateUrl  : './dialog.component.html',
     styles       : [
         `
-            .fuse-confirmation-dialog-panel {
-                @screen md {
-                    @apply w-128;
-                }
-
-                .mat-dialog-container {
-                    padding: 0 !important;
-                }
-            }
+            
         `
     ],
     encapsulation: ViewEncapsulation.None
@@ -27,6 +19,8 @@ export class FuseConfirmationDialogComponent
      */
     constructor(@Inject(MAT_DIALOG_DATA) public data: FuseConfirmationConfig)
     {
+        console.log('DIALOG IP' );
+        
     }
 
 }

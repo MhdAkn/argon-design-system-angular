@@ -1,0 +1,85 @@
+<main class="profile-page">
+  <section class="section-profile-cover section-shaped my-0">
+    <!-- Circles background -->
+    <div class="shape shape-style-1 shape-primary alpha-4">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <!-- SVG separator -->
+    <div class="separator separator-bottom separator-skew">
+      <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1"
+        xmlns="http://www.w3.org/2000/svg">
+        <polygon class="fill-white" points="2560 0 2560 100 0 100"></polygon>
+      </svg>
+    </div>
+  </section>
+  <section class="section">
+    <div>
+      <h4 class="bg-black text-red-500">Listes des messages</h4>
+      <!-- <div class="table-responsive">
+        <table class="table">
+          <thead class="thead-light">
+            <tr>
+              <th scope="col">Date d'envoi</th>
+              <th scope="col">Pseudo</th>
+              <th scope="col">Email</th>
+              <th scope="col">Message</th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngFor="let item of allMessages">
+              <tr>
+                <th scope="row">{{item.createdAt|initDate|date:'longDate':'':'fr'}}&nbsp;{{item.createdAt
+                  |initDate|date:'HH':'':'fr'}}h{{item.createdAt |initDate|date:'mm':'':'fr'}}</th>
+                <td>{{item.pseudo}}</td>
+                <td>{{item.firstName}}</td>
+                <td>{{item.lastName}}</td>
+              </tr>
+            </ng-container>
+          </tbody>
+        </table>
+      </div> -->
+      <div class="table-responsive mt-5">
+        <table class="table">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">Date de publication</th>
+              <th scope="col">Pseudo</th>
+              <th scope="col">Email</th>
+              <th scope="col">Message</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr  *ngFor="let item of allMessages">
+              <td>{{item.createdAt|initDate|date:'longDate':'':'fr'}}&nbsp;{{item.createdAt
+                |initDate|date:'HH':'':'fr'}}h{{item.createdAt |initDate|date:'mm':'':'fr'}}</td>
+                <td>{{item.pseudo}}</td>
+                <td>{{item.email}}</td>
+                <td>{{item.content}}</td>
+            </tr>
+            <!-- <tr>
+              <th scope="row">2</th>
+              <td>Jacob</td>
+              <td>Thornton</td>
+              <td>@fat</td>
+            </tr>
+            <tr>
+              <th scope="row">3</th>
+              <td>Larry</td>
+              <td>the Bird</td>
+              <td>@twitter</td>
+            </tr> -->
+          </tbody>
+        </table>
+
+
+      </div>
+
+    </div>
+  </section>
+</main>

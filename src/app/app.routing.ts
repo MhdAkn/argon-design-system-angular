@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { HomeComponent } from './pages/home/home.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { LandingComponent } from './pages/landing/landing.component';
@@ -15,27 +14,38 @@ import { NotesListesByUsersResolver } from './resolvers/note.resolver';
 import { LikesComponent } from './pages/likes/likes.component';
 import { NotesComponent } from './pages/notes/notes.component';
 import { UserDetailResolver } from './resolvers/user-detailsresolver';
+import { UsersListResolver } from './resolvers/user-list.resolver';
+import { MmessagesListComponent } from './pages/messages-list/messages-list.component';
+import { MessagesListResolver } from './resolvers/messages-list.resolver';
 
 export const appRoutes: Routes = [
-  { path: 'home', component: HomeComponent },
+  // { path: 'home', component: HomeComponent },
   {
     path: 'user-profile/:pseudo', component: ProfileComponent, resolve: {
-      user: UserDetailResolver, DataIfno: LikesListesByUsersResolver
+      currentUser: AccountResolver, userDetail: UserDetailResolver, DataIfno: LikesListesByUsersResolver
     },
   },
   { path: 'register', component: SignupComponent },
   {
     path: 'news',
     resolve: {
-      user: AccountResolver, DataInfo: NewsResolver
+      user: AccountResolver, DataInfo: NewsResolver, AllUsers: UsersListResolver
     },
     component: LandingComponent
   },
   {
+    path: 'messages',
+    resolve: {
+      user: AccountResolver, DataInfo: MessagesListResolver
+    },
+    component: MmessagesListComponent
+  },
+
+  {
     path: 'login',
     component: LoginComponent
   },
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
   {
     path: 'news',
     data: { theme: 'theme-brand' },
@@ -73,15 +83,18 @@ export const appRoutes: Routes = [
     resolve: { NoteData: NoteDetailsResolver, user: AccountResolver },
     // loadChildren: () => import('./pages/listes/detail-note/detail-note.module').then(m => m.DetailNoteModule)
   },
-  // {
-  //   path: '404',
-  //   resolve: { user: AccountResolver },
-  //   data: { preload: true },
-  //   loadChildren: () => import('./errors/error-404/error-404.module').then(m => m.Error404Module)
-  // },
+  {
+    path: '404',
+    // resolve: { user: AccountResolver },
+    data: { preload: true },
+    loadChildren: () => import('./errors/error-404/error-404.module').then(m => m.Error404Module)
+  },
   {
     path: '**', redirectTo: 'news'
   },
+  // {
+  //   path: '', redirectTo: 'news'
+  // },
 ];
 
 @NgModule({

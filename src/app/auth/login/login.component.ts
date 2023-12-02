@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
 
   returnUrl: string = '';
 
-  constructor( private auth: AuthServices, private router: Router,/*,private toastr: ToastrService*/) {
+  constructor(private auth: AuthServices, private router: Router,/*,private toastr: ToastrService*/) {
     //verification des validités 
     this.signInForm = new FormGroup({
       email: new FormControl('', Validators.required),
@@ -43,6 +43,8 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     //console.log(userList)
     // this.getUsers()
+    localStorage.clear();
+    sessionStorage.clear();
   }
 
   // getUsers() {

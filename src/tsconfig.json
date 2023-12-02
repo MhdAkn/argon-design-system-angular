@@ -3,7 +3,7 @@
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
     "baseUrl": "./src",
-    "outDir": "./dist/out-tsc",
+    "outDir": "./../Deployment/BuildNotarù",
     "sourceMap": true,
     "declaration": false,
     "downlevelIteration": true,

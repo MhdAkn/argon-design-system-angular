@@ -14,13 +14,14 @@ export class NavbarComponent implements OnInit {
     public isCollapsed;
     private lastPoppedUrl: string;
     private yScrollStack: number[] = [];
-    isConnect: boolean = false
+    isConnect: boolean=false
     currentUser: User
     constructor(public location: Location, private router: Router, private _utilsService: UtilsService, private _detector: ChangeDetectorRef,
 
     ) {
         this.isCollapsed = true;
         this.isConnect = this.getUserConnect() != null || this.getUserConnect() != undefined ? true : false
+        this._detector.markForCheck()
         this.currentUser = this.getUserConnect()
         this._detector.markForCheck();
         console.log(this.isConnect);
@@ -28,9 +29,8 @@ export class NavbarComponent implements OnInit {
     }
 
     ngOnInit() {
-
-
-
+        this.isConnect = this.getUserConnect() != null || this.getUserConnect() != undefined ? true : false
+        this._detector.markForCheck()
         this.router.events.subscribe((event) => {
             this.isCollapsed = true;
             if (event instanceof NavigationStart) {

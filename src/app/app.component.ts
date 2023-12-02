@@ -71,5 +71,9 @@ export class AppComponent implements OnInit {
           });
       });
       this.hasScrolled();
+
+    }
+    ngAfterViewInit(): void {
+        // this.location.reload();
     }
 }
