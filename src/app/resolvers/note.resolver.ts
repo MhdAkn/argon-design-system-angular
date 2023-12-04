@@ -29,7 +29,7 @@ export class NotesListesByUsersResolver implements Resolve<ApiResponse> {
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<ApiResponse> {
         let user = this._utilsService.READ_LOCAL_ENCODE(localStorage.CURRENT_USER);
         console.log(user);
-        
-        return this.noteService.getAllNotesByUser({ userId: user.id })
+
+        return this.noteService.getAllNotesByUser({ userId: user ? user.id : undefined })
     }
 }

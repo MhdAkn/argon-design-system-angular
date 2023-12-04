@@ -14,7 +14,7 @@ export class AuthGuard  {
     if (token) {
       return true;
     } else {
-      this.router.navigateByUrl('/login');
+      window.location.href='/login';
       return false;
     }
   }

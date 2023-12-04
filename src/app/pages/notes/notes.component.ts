@@ -138,7 +138,7 @@ export class NotesComponent implements OnInit {
           }
       })
     } else {
-      this.route.navigateByUrl(this.appUrl + 'login');
+      window.location.href = this.appUrl + 'login';
     }
   }
 
@@ -147,7 +147,7 @@ export class NotesComponent implements OnInit {
   }
   editNote(note: Note) {
     console.log('note');
-    
+
     this.updatenote = note
     this.isUpdateNote = true
     this.UpdateNoteForm = new FormGroup({

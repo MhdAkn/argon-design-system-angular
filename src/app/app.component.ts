@@ -70,6 +70,10 @@ export class AppComponent implements OnInit {
               }
           });
       });
+      if (!localStorage.getItem('isPageRefreshed')) {
+        localStorage.setItem('isPageRefreshed', 'true');
+        window.location.reload();
+    }
       this.hasScrolled();
 
     }

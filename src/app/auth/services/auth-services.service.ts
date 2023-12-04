@@ -62,7 +62,7 @@ export class AuthServices {
     localStorage.setItem('refreshToken', refreshToken);
     localStorage.setItem('tokenExpirationTime', (now + this.tokenExpirationTime).toString());
     localStorage.setItem('refreshTokenExpirationTime', (now + this.refreshTokenExpirationTime).toString());
-    // localStorage.setItem('tocken', JSON.stringify(this.tocken));
+    localStorage.setItem('tocken', JSON.stringify(this.tocken));
     console.log(localStorage.getItem('token'));
     console.log(localStorage.getItem('refreshToken'));
     console.log(localStorage.getItem('tokenExpirationTime'));
@@ -70,6 +70,42 @@ export class AuthServices {
     // console.log(localStorage.getItem('tocken'));
 
   }
+
+  // Vérifier si l'utilisateur est connecté en vérifiant la présence du jeton d'authentification et sa durée de validité dans le local storage
+  isAuthenticated(): boolean {
+    const authToken = localStorage.getItem('token');
+    const tokenExpirationTime = localStorage.getItem('tokenExpirationTime');
+
+    if (authToken && tokenExpirationTime) {
+      const now = new Date().getTime();
+      return now < parseInt(tokenExpirationTime, 10);
+    }
+    return false;
+  }
+
+  // Vérifier si le refreshToken est encore valide en vérifiant sa durée de validité dans le local storage
+  isRefreshTokenValid(): boolean {
+    const refreshToken = localStorage.getItem('refreshToken');
+    const refreshTokenExpirationTime = localStorage.getItem('refreshTokenExpirationTime');
+
+    if (refreshToken && refreshTokenExpirationTime) {
+      const now = new Date().getTime();
+      return now < parseInt(refreshTokenExpirationTime, 10);
+    }
+
+    return false;
+  }
+
+  refreshToken(): void {
+    // Effectuer la logique pour rafraîchir le token d'authentification en appelant une API avec le refreshToken
+    // Si le rafraîchissement est réussi, mettre à jour le jeton d'authentification et sa durée de validité dans le local storage
+    const newAuthToken = this.generateToken(10);
+    const now = new Date().getTime();
+
+    localStorage.setItem('token', newAuthToken);
+    localStorage.setItem('tokenExpirationTime', (now + this.tokenExpirationTime).toString());
+  }
+
 
   validateUserTocken() {
 
@@ -110,7 +146,7 @@ export class AuthServices {
             this._utilsService.STORE_LOCAL_ENCODE(localStorage.CURRENT_USER, this.currentUser);
             this.showSuccess()
             this.setTocken()
-            this.router.navigateByUrl('/news')
+            window.location.href = '/news'
 
           } else if (res.status == HttpCode.NOT_EXIST) {
             this._alertService.showToast('Email ou Mot de passe incorrecte', 'error', 'top-center')
@@ -118,7 +154,7 @@ export class AuthServices {
             this._alertService.showToast('Connexion échouée', 'error', 'top-center')
           }
         },
-        error: (error)=>{
+        error: (error) => {
           console.log(error);
         }
       })
@@ -134,7 +170,8 @@ export class AuthServices {
           this._utilsService.STORE_LOCAL_ENCODE(localStorage.CURRENT_USER, this.currentUser);
           this.showSuccess()
           this.setTocken()
-          this.router.navigateByUrl('/news')
+
+          window.location.href = '/news'
 
         } else if (res.status == HttpCode.NOT_EXIST) {
           this._alertService.showToast('Email ou Mot de passe incorrecte', 'error', 'top-center')
@@ -160,8 +197,9 @@ export class AuthServices {
           localStorage.removeItem('refreshToken');
           localStorage.removeItem('tokenExpirationTime');
           localStorage.removeItem('refreshTokenExpirationTime');
+          localStorage.removeItem('isPageRefreshed')
           this._alertService.showToast('Déconnexion réussie', 'success', 'top-center')
-          this.router.navigateByUrl('/login')
+          window.location.href = '/login'
         } else {
           this._alertService.showToast('Oops une erreur s\'est produite! Veuillez réassayer', 'error', 'top-center')
         }
@@ -194,41 +232,6 @@ export class AuthServices {
     return token;
   }
 
-  // Vérifier si l'utilisateur est connecté en vérifiant la présence du jeton d'authentification et sa durée de validité dans le local storage
-  isAuthenticated(): boolean {
-    const authToken = localStorage.getItem('token');
-    const tokenExpirationTime = localStorage.getItem('tokenExpirationTime');
-
-    if (authToken && tokenExpirationTime) {
-      const now = new Date().getTime();
-      return now < parseInt(tokenExpirationTime, 10);
-    }
-    return false;
-  }
-
-  // Vérifier si le refreshToken est encore valide en vérifiant sa durée de validité dans le local storage
-  isRefreshTokenValid(): boolean {
-    const refreshToken = localStorage.getItem('refreshToken');
-    const refreshTokenExpirationTime = localStorage.getItem('refreshTokenExpirationTime');
-
-    if (refreshToken && refreshTokenExpirationTime) {
-      const now = new Date().getTime();
-      return now < parseInt(refreshTokenExpirationTime, 10);
-    }
-
-    return false;
-  }
-
-  refreshToken(): void {
-    // Effectuer la logique pour rafraîchir le token d'authentification en appelant une API avec le refreshToken
-    // Si le rafraîchissement est réussi, mettre à jour le jeton d'authentification et sa durée de validité dans le local storage
-    const newAuthToken = this.generateToken(10);
-    const now = new Date().getTime();
-
-    localStorage.setItem('token', newAuthToken);
-    localStorage.setItem('tokenExpirationTime', (now + this.tokenExpirationTime).toString());
-  }
-
 
   registration(reqData: UserRegistration): Observable<ApiResponse> {
     return this._httpClient.post<ApiResponse>(`${this.apiUrl}auth${UserRoutes.USER_REGISTRATION}`, { reqData: reqData }, this.options)
@@ -256,7 +259,7 @@ export class AuthServices {
   getMe(): Observable<User> {
     let user = this._utilsService.READ_LOCAL_ENCODE(localStorage.CURRENT_USER);
     console.log(user);
-    
+
     return user
   }
 }

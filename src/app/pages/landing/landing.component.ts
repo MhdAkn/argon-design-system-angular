@@ -3,7 +3,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { User } from '../../models/user';
 import { ApiResponse } from '../../response/api-response';
 import { AlertService } from '../../utils/alert.service';
-import { UtilsService } from '../../utils/utils.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Note } from '../../models/Note';
 import { LikeService } from '../../services/like.service';
@@ -92,7 +91,7 @@ export class LandingComponent implements OnInit {
 
   saveOrRemoveLike($event, noteId: string, isLiked: boolean) {
     $event.stopPropagation();
-    console.log($event, noteId, isLiked);
+    console.log(noteId, isLiked);
 
     console.log(this.authService.isAuthenticated());
 
@@ -134,7 +133,7 @@ export class LandingComponent implements OnInit {
         });
       }
     } else {
-      this.route.navigateByUrl(this.appUrl + 'login');
+      window.location.href=this.appUrl + 'login';
     }
   }
   toggleParagraph(item: Note) {

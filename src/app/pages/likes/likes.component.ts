@@ -110,7 +110,7 @@ export class LikesComponent implements OnInit {
         });
       }
     } else {
-      this.route.navigateByUrl(this.appUrl + 'login');
+      window.location.href=this.appUrl + 'login';
     }
   }
 

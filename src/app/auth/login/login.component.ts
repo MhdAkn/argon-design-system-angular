@@ -43,8 +43,8 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     //console.log(userList)
     // this.getUsers()
-    localStorage.clear();
-    sessionStorage.clear();
+    // localStorage.clear();
+    // sessionStorage.clear();
   }
 
   // getUsers() {

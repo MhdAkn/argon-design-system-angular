@@ -1,73 +1,82 @@
-<nav id="navbar-main"
-  class="navbar navbar-main navbar-expand-lg navbar-transparent navbar-light headroom headroom--top headroom--pinned">
-  <div class="container">
-    <a class="navbar-brand mr-lg-5 h-2" [routerLink]="['/news']">
-      NOTARO
-    </a>
-    <button class="navbar-toggler" type="button" (click)="isCollapsed = !isCollapsed"
-      [attr.aria-expanded]="!isCollapsed" aria-controls="navbar_global">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="navbar-collapse collapse" id="navbar_global" [ngbCollapse]="isCollapsed">
-      <div class="navbar-collapse-header">
-        <div class="row">
-          <div class="col-6 collapse-brand">
-            <a [routerLink]="['/home']">
-              NOTARO
-            </a>
-          </div>
-          <div class="col-6 collapse-close">
-            <button type="button" class="navbar-toggler" (click)="isCollapsed = !isCollapsed"
-              [attr.aria-expanded]="!isCollapsed" aria-controls="navbar_global">
-              <span></span>
-              <span></span>
-            </button>
+<nav class="bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90%">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16 ">
+      <div class="flex items-center w-full">
+        <div class="flex-shrink-0">
+          <a href="#" class="text-white font-bold" [routerLink]="['/news']">
+            NOTARO</a>
+        </div>
+        <div class="hidden md:block w-full">
+          <div class="ml-10 flex items-baseline space-x-4 justify-end">
+            <ng-container *ngIf="isConnect">
+              <a [routerLink]="['/news']"
+                class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md font-medium">News</a>
+              <a [routerLink]="['/notes']"
+                class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md font-medium">Listes
+                des notes</a>
+              <a [routerLink]="['/likes']"
+                class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md font-medium">Listes
+                des favoris</a>
+              <a [routerLink]="['/user-profile']"
+                class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md font-medium">Profile
+              </a>
+              <a (click)="disconnect()"
+                class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md font-medium">Se déconnecter
+              </a>
+            </ng-container>
+            <ng-container *ngIf="!isConnect">
+              <a [routerLink]="['/register']"
+                class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md font-medium">Inscription</a>
+              <a [routerLink]="['/login']"
+                class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md font-medium">Connexion</a>
+
+            </ng-container>
+
           </div>
         </div>
       </div>
-      <ul class="navbar-nav navbar-nav-hover align-items-lg-center">
-        <ng-container>
+      <div class="-mr-2 flex md:hidden">
+        <button type="button"
+          class="bg-gray-900 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+          aria-controls="mobile-menu" aria-expanded="false" (click)="toggleMobileMenu()">
+          <span class="sr-only">Open main menu</span>
+          <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+            stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+          <svg class="hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+            stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="md:hidden" id="mobile-menu">
+    <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+      <ng-container *ngIf="isConnect">
 
-          <li class="nav-item dropdown summary">
-            <a class="nav-link no-caret" data-toggle="dropdown" [routerLink]="['/news']" role="button">
-              <i class="ni ni-ui-04 d-lg-none"></i>
-              <span class="nav-link-inner--text">News</span>
-            </a>
-          </li>
-          <li class="nav-item dropdown summary">
-            <a class="nav-link no-caret" data-toggle="dropdown" role="button">
-              <i class="ni ni-bullet-list-67 d-lg-none"></i>
-              <span class="nav-link-inner--text">Listes des notes</span>
-            </a>
-          </li>
-          <li class="nav-item dropdown summary">
-            <a class="nav-link no-caret" data-toggle="dropdown" [routerLink]="['/likes']" role="button">
-              <i class="ni ni-like-2 d-lg-none"></i>
-              <span class="nav-link-inner--text">Listes des favoris</span>
-            </a>
-          </li>
-          <li class="nav-item dropdown summary">
-            <a class="nav-link no-caret" data-toggle="dropdown" [routerLink]="['/user-profile']" role="button">
-              <i class="ni ni-vector d-lg-none"></i>
-              <span class="nav-link-inner--text">Profile</span>
-            </a>
-          </li>
-        </ng-container>
+        <a [routerLink]="['/news']"
+          class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md font-medium">News</a>
+        <a [routerLink]="['/notes']"
+          class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md font-medium">Listes
+          des notes</a>
+        <a [routerLink]="['/likes']"
+          class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md font-medium">Listes
+          des favoris</a>
+        <a [routerLink]="['/user-profile']"
+          class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md font-medium">Profile</a>
+        <a (click)="disconnect()"
+          class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md font-medium">Se déconnecter </a>
 
+      </ng-container>
+      <ng-container *ngIf="!isConnect">
 
-        <ng-container *ngIf="!isConnect">
-          <li class="nav-item dropdown summary">
-            <a [routerLink]="['/register']" class="dropdown-item">Register</a>
-
-          </li>
-          <li class="nav-item dropdown summary">
-            <a [routerLink]="['/login']" class="dropdown-item">Login</a>
-          </li>
-        </ng-container>
-
-
-
-      </ul>
+        <a [routerLink]="['/register']"
+          class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md font-medium">Inscription</a>
+        <a [routerLink]="['/login']"
+          class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md font-medium">Connexion</a>
+      </ng-container>
 
     </div>
   </div>

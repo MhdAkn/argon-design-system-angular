@@ -1,8 +1,9 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { Router, NavigationEnd, NavigationStart } from '@angular/router';
-import { Location, PopStateEvent } from '@angular/common';
+import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 import { UtilsService } from '../../utils/utils.service';
 import { User } from '../../models/user';
+import { AuthServices } from '../../auth/services/auth-services.service';
 
 @Component({
     selector: 'app-navbar',
@@ -11,71 +12,50 @@ import { User } from '../../models/user';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NavbarComponent implements OnInit {
-    public isCollapsed;
-    private lastPoppedUrl: string;
-    private yScrollStack: number[] = [];
-    isConnect: boolean=false
+    isPageRefreshing = false;
+    isConnect: boolean = false
     currentUser: User
-    constructor(public location: Location, private router: Router, private _utilsService: UtilsService, private _detector: ChangeDetectorRef,
+    constructor(private location: Location, private router: Router, private _utilsService: UtilsService, private _detector: ChangeDetectorRef, private auth: AuthServices,
 
     ) {
-        this.isCollapsed = true;
-        this.isConnect = this.getUserConnect() != null || this.getUserConnect() != undefined ? true : false
+        // this.isConnect = this.getUserConnect() != null || this.getUserConnect() != undefined ? true : false
+        this.isConnect = this.auth.isAuthenticated()
         this._detector.markForCheck()
         this.currentUser = this.getUserConnect()
         this._detector.markForCheck();
         console.log(this.isConnect);
         console.log(this.getUserConnect());
+        // window.location.reload();  
+
     }
 
     ngOnInit() {
-        this.isConnect = this.getUserConnect() != null || this.getUserConnect() != undefined ? true : false
+        // this.isConnect = this.getUserConnect() != null || this.getUserConnect() != undefined ? true : false
+        this.isConnect = this.auth.isAuthenticated()
         this._detector.markForCheck()
-        this.router.events.subscribe((event) => {
-            this.isCollapsed = true;
-            if (event instanceof NavigationStart) {
-                if (event.url != this.lastPoppedUrl)
-                    this.yScrollStack.push(window.scrollY);
-            } else if (event instanceof NavigationEnd) {
-                if (event.url == this.lastPoppedUrl) {
-                    this.lastPoppedUrl = undefined;
-                    window.scrollTo(0, this.yScrollStack.pop());
-                } else
-                    window.scrollTo(0, 0);
-            }
-        });
-        this.location.subscribe((ev: PopStateEvent) => {
-            this.lastPoppedUrl = ev.url;
-        });
+        // Rafraîchir la page uniquement lors de la première initialisation du composant
+        if (!localStorage.getItem('isPageRefreshed')) {
+            localStorage.setItem('isPageRefreshed', 'true');
+            setTimeout(() => {
+                window.location.reload();
+              }, 100);
+        }
+
     }
     getUserConnect(): User {
         return this._utilsService.READ_LOCAL_ENCODE(localStorage.CURRENT_USER);
     }
-    close() {
-        this.isCollapsed = false
-    }
 
-    toggle() {
-        this.isCollapsed = true
+    disconnect() {
+        this.auth.logout()
+    }
+    toggleMobileMenu() {
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenu.classList.toggle('hidden');
+    }
+    ngAfterViewInit(): void {
+        this.isConnect = this.auth.isAuthenticated()
         this._detector.markForCheck()
-    }
-    isHome() {
-        var titlee = this.location.prepareExternalUrl(this.location.path());
 
-        if (titlee === '#/home') {
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
-    isDocumentation() {
-        var titlee = this.location.prepareExternalUrl(this.location.path());
-        if (titlee === '#/documentation') {
-            return true;
-        }
-        else {
-            return false;
-        }
     }
 }
