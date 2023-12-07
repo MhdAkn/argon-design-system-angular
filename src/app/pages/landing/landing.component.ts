@@ -133,7 +133,7 @@ export class LandingComponent implements OnInit {
         });
       }
     } else {
-      window.location.href=this.appUrl + 'login';
+      window.location.href = this.appUrl + 'login';
     }
   }
   toggleParagraph(item: Note) {
@@ -144,6 +144,20 @@ export class LandingComponent implements OnInit {
       }
     })
   }
+  shouldShowButton(item: any): boolean {
+    const element = document.querySelector('.line-clamp-3');
+    const isTextTruncated = element.scrollHeight > element.clientHeight;
+  
+    return isTextTruncated;
+  }
+  // shouldShowButton(item: any): boolean {
+  //   const element = document.querySelector('.line-clamp-3');
+  //   const computedStyle = getComputedStyle(element);
+  //   const lineHeight = parseInt(computedStyle.lineHeight);
+  //   const elementHeight = element.clientHeight;
+
+  //   return elementHeight > lineHeight * 3;
+  // }
   // getBackgroundColorClass(index: number) {
   //   const colors = ['danger', 'warning', 'dark', 'success'];
   //   const colorIndex = index % colors.length;

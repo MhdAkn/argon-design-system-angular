@@ -17,7 +17,7 @@
               <a [routerLink]="['/likes']"
                 class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md font-medium">Listes
                 des favoris</a>
-              <a [routerLink]="['/user-profile']"
+              <a [routerLink]="['/user-profile/'+currentUser.pseudo]"
                 class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md font-medium">Profile
               </a>
               <a (click)="disconnect()"
@@ -64,7 +64,7 @@
         <a [routerLink]="['/likes']"
           class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md font-medium">Listes
           des favoris</a>
-        <a [routerLink]="['/user-profile']"
+        <a [routerLink]="['/user-profile/'+currentUser.pseudo]"
           class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md font-medium">Profile</a>
         <a (click)="disconnect()"
           class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md font-medium">Se déconnecter </a>

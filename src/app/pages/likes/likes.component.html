@@ -60,7 +60,7 @@
                         {{item.note.createdAt|initDate|date:'longDate':'':'fr'}}&nbsp;{{item.note.createdAt
                         |initDate|date:'HH':'':'fr'}}h{{item.note.createdAt |initDate|date:'mm':'':'fr'}}</span>
                     </div>
-                    <a (click)="toggleParagraph(item.note)" class="btn text-light mt-4" [ngClass]="getBtnColorClass(i)">
+                    <a *ngIf="shouldShowButton(item)" (click)="toggleParagraph(item.note)" class="btn text-light mt-4" [ngClass]="getBtnColorClass(i)">
                       {{!item.note.showParagraph?'Voir plus':'Voir moins' |titlecase}}</a>
                   </div>
                 </div>

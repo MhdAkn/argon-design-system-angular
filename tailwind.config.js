@@ -5,7 +5,24 @@ module.exports = {
     "./src/**/*.{html,ts}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      animation: {
+        typing: 'typing 10s infinite steps(62)',
+      },
+      keyframes: {
+        typing: {
+          '0%': {
+            width: '0',
+          },
+          '80%': {
+            width: '62ch',
+          },
+          '100%': {
+            width: '62ch',
+          },
+        },
+      },
+    },
     screens: {
       sm: '480px',
       md: '768px',

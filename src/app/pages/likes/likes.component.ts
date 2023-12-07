@@ -56,7 +56,13 @@ export class LikesComponent implements OnInit {
       }
     })
   }
+  shouldShowButton(item: any): boolean {
+    const element = document.querySelector('.line-clamp-3');
+    const isTextTruncated = element.scrollHeight > element.clientHeight;
 
+    return isTextTruncated;
+  }
+  
   getBackgroundColorClass(index: number) {
     const colors = ['danger', 'warning', 'dark', 'success'];
     const colorIndex = index % (colors.length * 2);

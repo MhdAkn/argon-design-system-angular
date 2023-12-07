@@ -141,7 +141,7 @@
                         </button>
                       </span>
                     </div>
-                    <a (click)="toggleParagraph(item)" class="btn text-white mt-4" [ngClass]="getBtnColorClass(i)">
+                    <a *ngIf="shouldShowButton(item)" (click)="toggleParagraph(item)" class="btn text-white mt-4" [ngClass]="getBtnColorClass(i)">
                       {{!item.showParagraph?'Voir plus':'Voir moins' |titlecase}}</a>
                   </div>
                 </div>

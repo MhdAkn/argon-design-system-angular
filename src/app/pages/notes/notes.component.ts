@@ -145,6 +145,14 @@ export class NotesComponent implements OnInit {
   goToDetail(note) {
     window.location.href = `notes/${note.id}/detail`
   }
+
+  shouldShowButton(item: any): boolean {
+    const element = document.querySelector('.line-clamp-3');
+    const isTextTruncated = element.scrollHeight > element.clientHeight;
+
+    return isTextTruncated;
+  }
+  
   editNote(note: Note) {
     console.log('note');
 

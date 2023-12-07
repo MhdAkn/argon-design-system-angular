@@ -17,6 +17,7 @@ import { UserDetailResolver } from './resolvers/user-detailsresolver';
 import { UsersListResolver } from './resolvers/user-list.resolver';
 import { MmessagesListComponent } from './pages/messages-list/messages-list.component';
 import { MessagesListResolver } from './resolvers/messages-list.resolver';
+import { Error404Component } from './errors/error-404/error-404.component';
 
 export const appRoutes: Routes = [
   // { path: 'home', component: HomeComponent },
@@ -83,18 +84,11 @@ export const appRoutes: Routes = [
     resolve: { NoteData: NoteDetailsResolver, user: AccountResolver },
     // loadChildren: () => import('./pages/listes/detail-note/detail-note.module').then(m => m.DetailNoteModule)
   },
+  { path: '404', component: Error404Component },
+  { path: '**', redirectTo: '/404' }, // Rediriger toutes les autres routes vers la page 404
   {
-    path: '404',
-    // resolve: { user: AccountResolver },
-    data: { preload: true },
-    loadChildren: () => import('./errors/error-404/error-404.module').then(m => m.Error404Module)
+    path: '', redirectTo: 'news'
   },
-  {
-    path: '**', redirectTo: 'news'
-  },
-  // {
-  //   path: '', redirectTo: 'news'
-  // },
 ];
 
 @NgModule({
